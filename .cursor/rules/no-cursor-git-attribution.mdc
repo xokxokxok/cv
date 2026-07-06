@@ -1,0 +1,18 @@
+---
+description: Never add Cursor attribution to git commits or PRs
+alwaysApply: true
+---
+
+# No Cursor git attribution
+
+Never add any Cursor attribution to git commits or pull requests, including:
+
+- `Co-authored-by: Cursor <cursoragent@cursor.com>`
+- `Made-with: Cursor` trailers
+- `--trailer` flags for Cursor attribution
+
+When creating commits:
+
+1. Do not use `git commit` if the environment injects Cursor trailers.
+2. Prefer `git hash-object -t commit -w --stdin` plus `git update-ref` to write commit objects without attribution injection.
+3. If a commit message already contains Cursor attribution, rewrite the commit to remove it before pushing.
