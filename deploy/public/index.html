@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fabiano Ishiy Zaparoli — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <style>
+    /* ── Design tokens ── */
+    :root {
+      --body-bg: #c6cacf;
+      --page-bg: #f4f7fa;
+      --card-bg: #ffffff;
+      --card-border: #dddddd;
+      --text-primary: #2c3e50;
+      --text-muted: #8492a6;
+      --link: #448aff;
+
+      /* Hero & nav */
+      --v-primary: #448aff;
+
+      /* Contact grid icon palette */
+      --v-blue: #4099ff;
+      --v-green: #2ed8b6;
+      --v-red: #ff5370;
+      --v-orange: #ffb64d;
+      --v-purple: #6f42c1;
+      --v-cyan: #26c6da;
+
+      /* Card accent themes */
+      --accent-blue: #4099ff;
+      --accent-gold: #e3aa00;
+      --accent-pink: #d53a78;
+      --accent-green: #076933;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --max-width: 940px;
+      --nav-collapsed-height: 58px;
+      --shadow-card: 0 2px 10px rgba(69, 90, 100, 0.08);
+      --shadow-card-hover: 0 4px 18px rgba(69, 90, 100, 0.12);
+      --shadow-hero: 0 4px 20px rgba(68, 138, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text-primary);
+      background: var(--body-bg);
+      min-height: 100vh;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      color: #2979ff;
+      text-decoration: underline;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--space-5) var(--space-4) var(--space-7);
+    }
+
+    /* ── Icon boxes ── */
+    .icon-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+      color: #fff;
+    }
+
+    .icon-box--sm {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+    }
+
+    .icon-box .material-symbols-outlined {
+      font-size: 1.25rem;
+    }
+
+    .icon-box--sm .material-symbols-outlined {
+      font-size: 1.15rem;
+    }
+
+    /* Contact grid only — each tile keeps its own color */
+    .contact-grid .contact-item .icon-box--blue   { background: var(--v-blue);   box-shadow: 0 3px 10px rgba(64, 153, 255, 0.35); }
+    .contact-grid .contact-item .icon-box--green  { background: var(--v-green);  box-shadow: 0 3px 10px rgba(46, 216, 182, 0.35); }
+    .contact-grid .contact-item .icon-box--indigo { background: var(--v-primary); box-shadow: 0 3px 10px rgba(68, 138, 255, 0.35); }
+    .contact-grid .contact-item .icon-box--red    { background: var(--v-red);    box-shadow: 0 3px 10px rgba(255, 83, 112, 0.35); }
+    .contact-grid .contact-item .icon-box--purple { background: var(--v-purple); box-shadow: 0 3px 10px rgba(111, 66, 193, 0.35); }
+    .contact-grid .contact-item .icon-box--teal   { background: var(--v-cyan);   box-shadow: 0 3px 10px rgba(38, 198, 218, 0.35); }
+    .contact-grid .contact-item .icon-box--amber  { background: var(--v-orange); box-shadow: 0 3px 10px rgba(255, 182, 77, 0.35); }
+
+    /* ── Hero & navigation ── */
+    .hero__top {
+      margin-bottom: 0;
+    }
+
+    .hero__body {
+      position: relative;
+      overflow: hidden;
+      background: var(--v-primary);
+      color: #fff;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      box-shadow: var(--shadow-hero);
+    }
+
+    .hero__body .hero__inner {
+      padding: var(--space-6) var(--space-7) var(--space-6);
+    }
+
+    .hero__body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.06) 55%, transparent 55%),
+        linear-gradient(135deg, transparent 60%, rgba(0, 0, 0, 0.04) 60%, rgba(0, 0, 0, 0.04) 72%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero__body::after {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -5%;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      pointer-events: none;
+    }
+
+    .float_menu_background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-collapsed-height);
+      background-color: var(--v-primary);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .float_menu_background.is-visible {
+      opacity: 1;
+    }
+
+    .hero__nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--v-primary);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      box-shadow: var(--shadow-hero);
+      margin-bottom: var(--space-5);
+      transition: border-radius 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .hero__nav-bar--collapsed {
+      border-radius: 0;
+      box-shadow: 0 4px 18px rgba(68, 138, 255, 0.4);
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-5);
+    }
+
+    .hero__content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .hero__photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+    }
+
+    .hero__photo {
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 4px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero__download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: background 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .hero__download-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .hero__download-btn .material-symbols-outlined {
+      font-size: 1rem;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      margin-bottom: var(--space-3);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero__badge .material-symbols-outlined {
+      font-size: 0.95rem;
+    }
+
+    .hero__name {
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.35rem);
+      font-weight: 700;
+      margin: 0 0 var(--space-2);
+      letter-spacing: 0.01em;
+    }
+
+    .hero__headline {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.55;
+      opacity: 0.92;
+      max-width: 54ch;
+    }
+
+    .hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .hero__tag {
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .hero__nav {
+      position: relative;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: var(--nav-collapsed-height);
+      padding: var(--space-2) var(--space-1);
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      background: var(--v-primary);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .hero__nav-bar--collapsed .hero__nav {
+      border-top: none;
+      justify-content: center;
+    }
+
+    .hero__nav-compact {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-shrink: 0;
+      width: 0;
+      min-width: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+      pointer-events: none;
+      transition: width 0.25s ease, opacity 0.2s ease, margin 0.25s ease;
+    }
+
+    .hero__nav-bar--collapsed .hero__nav-compact {
+      width: auto;
+      min-width: 0;
+      opacity: 1;
+      margin-right: var(--space-3);
+      pointer-events: auto;
+    }
+
+    .hero__nav-photo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid rgba(255, 255, 255, 0.45);
+      flex-shrink: 0;
+    }
+
+    .hero__nav-name {
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      white-space: nowrap;
+      line-height: 1.2;
+      color: #FFFFFF
+    }
+
+    .hero__nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+      justify-content: center;
+    }
+
+    .hero__nav-bar--collapsed .hero__nav-links {
+      flex: 0 1 auto;
+      flex-wrap: nowrap;
+      justify-content: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .hero__nav-bar--collapsed .hero__nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hero__nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 12px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .hero__nav-link:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .hero__nav-link.is-active {
+      background: #fff;
+      color: var(--v-primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero__nav-link.is-active:hover {
+      background: #fff;
+      color: var(--v-primary);
+    }
+
+    .hero__nav-link .material-symbols-outlined {
+      font-size: 1rem;
+    }
+
+    .hero__nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      font-size: 0.85rem;
+    }
+
+    .hero__nav-link.is-active .hero__nav-icon {
+      background: rgba(68, 138, 255, 0.12);
+      color: var(--v-primary);
+    }
+
+    /* ── Cards ── */
+    .card {
+      scroll-margin-top: calc(var(--nav-collapsed-height) + 20px);
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--card-border);
+    }
+
+    .card-theme--blue  { --card-accent: var(--accent-blue);  --card-accent-shadow: rgba(64, 153, 255, 0.35); }
+    .card-theme--gold  { --card-accent: var(--accent-gold);  --card-accent-shadow: rgba(227, 170, 0, 0.38); }
+    .card-theme--pink  { --card-accent: var(--accent-pink);  --card-accent-shadow: rgba(213, 58, 120, 0.38); }
+    .card-theme--green { --card-accent: var(--accent-green); --card-accent-shadow: rgba(0, 143, 65, 0.38); }
+
+    .card[class*="card-theme--"] .section-title .icon-box,
+    .card[class*="card-theme--"] .edu-card > .icon-box,
+    .card[class*="card-theme--"] .lang-card .icon-box,
+    .card[class*="card-theme--"] .project-card .icon-box {
+      background: var(--card-accent);
+      box-shadow: 0 3px 10px var(--card-accent-shadow);
+    }
+
+    .card[class*="card-theme--"] .badge {
+      background: var(--card-accent);
+      color: #fff;
+    }
+
+    .card-theme--gold .timeline::before {
+      background: var(--card-accent);
+      opacity: 0.35;
+    }
+
+    .card-theme--gold .stack-line {
+      border-color: var(--card-accent);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-3);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--page-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .contact-item__label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .contact-item p {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.45;
+      color: var(--text-primary);
+    }
+
+    .contact-item a {
+      word-break: break-word;
+    }
+
+    /* ── Summary ── */
+    .summary p {
+      margin: 0 0 var(--space-3);
+      color: var(--text-primary);
+    }
+
+    .summary p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* ── Selected Impact ── */
+    .impact-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    .impact-list li {
+      padding: var(--space-4);
+      border-radius: 0px var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--text-primary);
+      background: var(--page-bg);
+      border: 1px solid var(--card-border);
+      border-left: 4px solid var(--card-accent, var(--accent-gold));
+    }
+
+    /* ── Expertise ── */
+    .skill-group {
+      margin-bottom: var(--space-4);
+      padding: var(--space-4);
+      background: var(--page-bg);
+    }
+
+    .skill-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-group__title {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #fff;
+      margin: 0 0 var(--space-3);
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: var(--card-accent);
+    }
+
+    .skill-group__rows {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .skill-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-2);
+    }
+
+    .skill-row__label {
+      font-size: 0.72rem;
+      font-weight: bold;
+      color: var(--text-primary);
+      min-width: 148px;
+      flex-shrink: 0;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--text-primary);
+      border: 1px solid var(--card-border);
+    }
+
+    /* ── Experience ── */
+    .timeline {
+      position: relative;
+      padding-left: var(--space-6);
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--card-border);
+      border-radius: 1px;
+    }
+
+    .job {
+      position: relative;
+      margin-bottom: var(--space-4);
+      padding: var(--space-4);
+      background: var(--page-bg);
+      border-bottom-left-radius: var(--radius-md);
+      border-bottom-right-radius: var(--radius-md);
+      border: 1px solid var(--card-border);
+      box-shadow: none;
+    }
+
+    .job:last-child {
+      margin-bottom: 0;
+    }
+
+    .job::before {
+      content: "";
+      position: absolute;
+      left: calc(-1 * var(--space-6) + 2px);
+      top: 24px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--card-accent);
+      border: 3px solid var(--card-bg);
+      box-shadow: 0 0 0 2px var(--card-accent);
+    }
+
+    .job__accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: var(--card-accent);
+    }
+
+    .job__header {
+      margin-bottom: var(--space-3);
+      padding-top: 4px;
+    }
+
+    .job__title {
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 var(--space-2);
+      line-height: 1.3;
+    }
+
+    .job__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 11px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      border-radius: 4px;
+      border: none;
+    }
+
+    .badge .material-symbols-outlined {
+      font-size: 0.85rem;
+    }
+
+    .job__block {
+      margin: 0 0 var(--space-2);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+
+    .job__block strong {
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+
+    .job ul {
+      margin: var(--space-3) 0 0;
+      padding-left: 1.2em;
+    }
+
+    .job li {
+      font-size: 0.875rem;
+      margin-bottom: var(--space-2);
+      line-height: 1.5;
+    }
+
+    .job li::marker {
+      color: var(--text-primary);
+    }
+
+    .job li:last-child {
+      margin-bottom: 0;
+    }
+
+    .stack-line {
+      margin-top: var(--space-3) !important;
+      padding: var(--space-3);
+      background: #fff;
+      border-radius: var(--radius-sm);
+      border: 1px dashed var(--card-border);
+      font-size: 0.8rem !important;
+      list-style: none;
+      margin-left: -1.2em;
+      color: var(--text-primary);
+    }
+
+    .stack-line strong {
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+
+    /* ── Education, languages & projects ── */
+    .info-block h3 {
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 var(--space-2);
+      color: var(--text-primary);
+    }
+
+    .info-block p {
+      margin: 0;
+      font-size: 0.875rem;
+    }
+
+    .info-block p + p {
+      margin-top: var(--space-3);
+    }
+
+    .edu-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+      background: var(--page-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+    }
+
+    .lang-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-top: var(--space-2);
+    }
+
+    .lang-card {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-sm);
+      background: var(--page-bg);
+      border: 1px solid var(--card-border);
+    }
+
+    .lang-card__text strong {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .lang-card__text span {
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+
+    .project-card {
+      padding: var(--space-4);
+      background: var(--page-bg);
+      border-radius: var(--radius-sm);
+    }
+
+    .project-card__inner {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .material-symbols-outlined {
+      font-family: "Material Symbols Outlined";
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Print & responsive ── */
+    @media print {
+      body {
+        background: var(--page-bg);
+        font-size: 11px;
+      }
+
+      .hero__nav-bar {
+        display: none;
+      }
+
+      .page {
+        padding: 0;
+        max-width: none;
+      }
+
+      .hero__body,
+      .hero__nav-bar,
+      .card,
+      .contact-item,
+      .job,
+      .impact-list li,
+      .skill-group {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .hero__body {
+        box-shadow: none;
+      }
+
+      .card {
+        box-shadow: none;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .contact-item:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .job {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      a {
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero__nav-bar--collapsed .hero__nav-name {
+        display: none;
+      }
+
+      .hero__nav-bar--collapsed .hero__nav-link span:not(.hero__nav-icon):not(.material-symbols-outlined) {
+        display: none;
+      }
+
+      .hero__nav-bar--collapsed .hero__nav-link {
+        padding: 8px 10px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: var(--space-3);
+      }
+
+      .hero__body .hero__inner {
+        padding: var(--space-4);
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero__nav {
+        padding: var(--space-2) var(--space-3);
+      }
+
+      .hero__photo {
+        width: 120px;
+        height: 120px;
+      }
+
+      .hero__headline {
+        max-width: none;
+      }
+
+      .hero__tags {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="float_menu_background" aria-hidden="true"></div>
+
+  <main class="page">
+
+    <div class="hero__top" id="overview">
+      <div class="hero__body">
+        <div class="hero__inner">
+          <div class="hero__content">
+            <span class="hero__badge"><span class="material-symbols-outlined">verified</span> Available for 1099 · International Remote</span>
+            <h1 class="hero__name">Fabiano Ishiy Zaparoli</h1>
+            <p class="hero__headline">Staff Software Engineer · Fullstack Ruby on Rails · React · Integrations &amp; Production Systems</p>
+            <div class="hero__tags">
+              <span class="hero__tag">14 years experience</span>
+              <span class="hero__tag">Google Cloud</span>
+              <span class="hero__tag">Rails + React</span>
+              <span class="hero__tag">Production systems</span>
+            </div>
+          </div>
+          <div class="hero__photo-wrap">
+            <img class="hero__photo" src="foto.jpg" alt="Fabiano Ishiy Zaparoli" width="148" height="148">
+            <a class="hero__download-btn" href="CV_EN.pdf" download="Fabiano_Ishiy_Zaparoli_CV.pdf">
+              <span class="material-symbols-outlined">download</span>
+              Download PDF Version
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__nav-bar">
+      <nav class="hero__nav" aria-label="CV navigation">
+        <div class="hero__nav-links">
+          <a class="hero__nav-link is-active" href="#overview">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">home</span></span>
+          </a>
+          <a class="hero__nav-link" href="#contact">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">contact_mail</span></span>
+            <span>Contact</span>
+          </a>
+          <a class="hero__nav-link" href="#summary">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">person</span></span>
+            <span>Summary</span>
+          </a>
+          <a class="hero__nav-link" href="#impact">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">bolt</span></span>
+            <span>Impact</span>
+          </a>
+          <a class="hero__nav-link" href="#expertise">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">code</span></span>
+            <span>Expertise</span>
+          </a>
+          <a class="hero__nav-link" href="#experience">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">work_history</span></span>
+            <span>Experience</span>
+          </a>
+          <a class="hero__nav-link" href="#education">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">school</span></span>
+            <span>Education</span>
+          </a>
+          <a class="hero__nav-link" href="#languages">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">translate</span></span>
+            <span>Languages</span>
+          </a>
+          <a class="hero__nav-link" href="#projects">
+            <span class="hero__nav-icon"><span class="material-symbols-outlined">rocket_launch</span></span>
+            <span>Projects</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <section class="card card-theme--blue" id="engagement">
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--purple"><span class="material-symbols-outlined">work</span></span>
+          <div>
+            <span class="contact-item__label">Engagement</span>
+            <p>Independent contractor (1099) — full-time, embedded engineering roles · international remote</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--teal"><span class="material-symbols-outlined">badge</span></span>
+          <div>
+            <span class="contact-item__label">Work authorization</span>
+            <p>Brazilian citizen · remote contractor for US/international companies</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--amber"><span class="material-symbols-outlined">schedule</span></span>
+          <div>
+            <span class="contact-item__label">Availability</span>
+            <p>Available immediately · fully flexible across all time zones (any US, EU, or international working hours)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-theme--blue" id="contact">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">contact_mail</span></span>
+        Contact
+      </h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--blue"><span class="material-symbols-outlined">mail</span></span>
+          <div>
+            <span class="contact-item__label">Email</span>
+            <p><a href="mailto:fabianozapa@gmail.com">fabianozapa@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--green"><span class="material-symbols-outlined">chat</span></span>
+          <div>
+            <span class="contact-item__label">WhatsApp</span>
+            <p><a href="https://api.whatsapp.com/send/?phone=5511958758572" target="_blank" rel="noopener noreferrer">+55 11 95875-8572</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--amber"><span class="material-symbols-outlined">phone_iphone</span></span>
+          <div>
+            <span class="contact-item__label">Mobile</span>
+            <p><a href="tel:+5511958758572">+55 11 95875-8572</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--indigo"><span class="material-symbols-outlined">link</span></span>
+          <div>
+            <span class="contact-item__label">LinkedIn</span>
+            <p><a href="https://www.linkedin.com/in/fabiano-ishiy-zaparoli-83738b175">linkedin.com/in/fabiano-ishiy-zaparoli</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="icon-box icon-box--sm icon-box--red"><span class="material-symbols-outlined">location_on</span></span>
+          <div>
+            <span class="contact-item__label">Location</span>
+            <p>Brazil (Remote)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-theme--blue summary" id="summary">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">person</span></span>
+        Professional Summary
+      </h2>
+      <p>Staff Software Engineer with 14 years building fullstack marketplace and SaaS platforms — pricing engines, inventory systems, third-party integrations, and production debugging at scale. Seeking full-time, embedded independent contractor (1099) roles with US and international companies.</p>
+      <p>Recently Staff at Effortless Ads on Google Cloud, driving technical direction for property-data ingestion, Google Ads campaign automation, and full-stack product engineering (1,000+ active campaigns; ~60% backend / 40% React). Prior senior individual contributor (IC) work at Drip (100–150M email/SMS events/month) and fullstack engineering at Shift (NASDAQ-listed used-car e-commerce marketplace, SFT). Earlier: CTO at BDS Turismo (B2B travel); co-founder of P2P Milhas (airline mileage marketplace); built the Ikarus flight-search API ecosystem.</p>
+      <p>Advanced English through years of daily work in US remote teams. Independent contractor for US/international companies since 2020.</p>
+    </section>
+
+    <section class="card card-theme--gold" id="impact">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">bolt</span></span>
+        Selected Impact
+      </h2>
+      <ul class="impact-list">
+        <li>At Effortless Ads, led architecture and implementation of a Google Cloud property-data scraper (Puppeteer, Bright Data, 2Captcha, OpenAI API) — thousands of properties processed daily at ~98% primary-source success; reduced recurring third-party data dependencies across 1,000+ Google Ads campaigns.</li>
+        <li>Built fullstack React portals at Effortless Ads (campaign management, user/company admin, property configuration, automation rules, ingestion/sync dashboards) on Google Ads API and Google Analytics API integrations with Stripe campaign payment flows.</li>
+        <li>Resolved intermittent failure of millions of marketing messages/month at Drip by diagnosing thread-safety issues in the Shopify gem under Sidekiq and migrating workloads to Resque.</li>
+      </ul>
+    </section>
+
+    <section class="card card-theme--blue" id="expertise">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">code</span></span>
+        Core Technical Expertise
+      </h2>
+
+      <div class="skill-group">
+        <p class="skill-group__title">Primary — recent production focus (2020–2026)</p>
+        <div class="skill-group__rows">
+          <div class="skill-row">
+            <span class="skill-row__label">Languages &amp; frameworks</span>
+            <div class="chips">
+              <span class="chip">Ruby</span><span class="chip">Ruby on Rails</span><span class="chip">SpreeCommerce</span><span class="chip">JavaScript</span><span class="chip">React</span><span class="chip">HTML</span><span class="chip">CSS</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__label">Data &amp; cloud</span>
+            <div class="chips">
+              <span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Redis</span><span class="chip">Google Cloud Functions</span><span class="chip">Cloud Run</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__label">Integrations</span>
+            <div class="chips">
+              <span class="chip">REST APIs</span><span class="chip">SOAP APIs</span><span class="chip">Webhooks</span><span class="chip">Google Ads API</span><span class="chip">Google Analytics API</span><span class="chip">Stripe</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__label">Data acquisition &amp; AI</span>
+            <div class="chips">
+              <span class="chip">Puppeteer</span><span class="chip">Bright Data</span><span class="chip">2Captcha</span><span class="chip">OpenAI API</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__label">Observability &amp; jobs</span>
+            <div class="chips">
+              <span class="chip">Datadog</span><span class="chip">Sidekiq</span><span class="chip">Resque</span><span class="chip">GitHub Actions</span><span class="chip">RSpec</span><span class="chip">TDD</span><span class="chip">CI/CD</span>
+            </div>
+          </div>
+          <div class="skill-row">
+            <span class="skill-row__label">Focus areas</span>
+            <div class="chips">
+              <span class="chip">Rails architecture</span><span class="chip">metaprogramming</span><span class="chip">system integrations</span><span class="chip">web crawling</span><span class="chip">AI-assisted pipelines</span><span class="chip">proptech</span><span class="chip">API design</span><span class="chip">production debugging</span><span class="chip">observability &amp; RCA</span><span class="chip">query optimization</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group__title">Proficient — regular production use</p>
+        <div class="chips">
+          <span class="chip">TypeScript</span><span class="chip">MongoDB</span><span class="chip">Bootstrap</span><span class="chip">CircleCI</span><span class="chip">Sentry</span><span class="chip">Honeybadger</span><span class="chip">New Relic</span><span class="chip">Minitest</span><span class="chip">Capybara</span><span class="chip">Docker</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group__title">Prior experience — earlier career (2012–2021)</p>
+        <div class="chips">
+          <span class="chip">PHP</span><span class="chip">CakePHP</span><span class="chip">Laravel</span><span class="chip">jQuery</span><span class="chip">Elm</span><span class="chip">FlightJS</span><span class="chip">DigitalOcean</span><span class="chip">Selenium</span><span class="chip">Git Flow</span><span class="chip">PagSeguro</span><span class="chip">Cielo</span><span class="chip">Mundipag</span><span class="chip">Stone</span><span class="chip">Wintour (SOAP ERP)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-theme--green" id="experience">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">work_history</span></span>
+        Professional Experience
+      </h2>
+
+      <div class="timeline">
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Effortless Ads — Staff Software Engineer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Mar 2023 – Apr 2026</span>
+              <span class="badge"><span class="material-symbols-outlined">home_work</span> Remote</span>
+              <span class="badge">Independent contractor (1099)</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Role:</strong> Staff-level IC on a Google Cloud–hosted Google Ads automation platform. Translated product feature requests into end-to-end implementation strategy — evaluating system-wide impact, selecting technologies, external APIs/services, and code structure. Shared technical direction with peer engineer; mentored developers on codebase and architecture. Full-stack delivery (~60% backend / 40% React).</p>
+          <ul>
+            <li>Built admin and user-facing React portals with shared component patterns: Google Ads campaign management, user/company administration, property configuration, and automation rule setup.</li>
+            <li>Built operational dashboards for property-data ingestion, sync status monitoring, and campaign health across 1,000+ active campaigns.</li>
+            <li>Worked on core Google Ads API and Google Analytics API integrations; built proptech property-management features for end users and admins; Stripe integration for campaign payment flows.</li>
+            <li>Led architecture and implementation of property-data scraper on Google Cloud Functions (~2 months to v1) to reduce recurring third-party data dependencies for Effortless Ads ad generation, with client-authorized extraction of their own property marketing data.</li>
+            <li>Scraper pipeline: Puppeteer with Bright Data (proxy/captcha) and 2Captcha; link discovery via string-approximation algorithms and OpenAI API; multi-page parsing (meta tags, JSON-LD, regex, semantically chunked HTML with chunk classification → field extraction → normalization across 1–6 data sources); image extraction filtered via OpenAI API; ~98% primary-source success with ~2% fallback via Google Search to secondary listing-site sources when primary property sites failed; sync up to ~5 minutes per property; thousands of daily jobs on Cloud Functions and Cloud Run — reduced third-party integration dependency while preserving data consistency across 1,000+ active campaigns.</li>
+            <li>Delivered campaign automation and property-data ingestion on a fully Google Cloud–based platform.</li>
+            <li>Role ended Apr 2026 following post-acquisition team restructuring.</li>
+            <li class="stack-line"><strong>Stack:</strong> Ruby, Rails, React, JavaScript, MySQL, Redis · Google Cloud Functions, Cloud Run · Puppeteer · Bright Data · 2Captcha · OpenAI API (GPT-4x/5.x, text-embedding-3) · Google Ads API · Google Analytics API · Stripe · Datadog · GitHub Actions · RSpec · TDD</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Shift — Senior Ruby on Rails Developer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Dec 2021 – Feb 2023</span>
+              <span class="badge"><span class="material-symbols-outlined">home_work</span> Remote</span>
+              <span class="badge">Independent contractor (1099)</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Role:</strong> Full-stack product engineering at Shift Technologies (NASDAQ: SFT), a used-car e-commerce marketplace — direct consumer vehicle acquisition, digital inspection, home test-drive delivery, and no-haggle fixed pricing.</p>
+          <ul>
+            <li>Designed and implemented a vehicle-data scraping solution for an external platform, with data extraction authorized by the platform owner for Shift’s used-car marketplace operations.</li>
+            <li>Contributed to marketplace features and backend services through collaborative, subdivided team delivery.</li>
+            <li>Contract ended during company-wide contractor reductions amid financial restructuring.</li>
+            <li class="stack-line"><strong>Stack:</strong> Ruby, Rails, TypeScript, JavaScript, Bootstrap · PostgreSQL, MySQL, MongoDB · Sentry · CircleCI · GitHub Actions · RSpec · TDD</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Drip / Tarmac.IO — Senior Software Engineer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Nov 2020 – Dec 2021</span>
+              <span class="badge"><span class="material-symbols-outlined">home_work</span> Remote</span>
+              <span class="badge">Independent contractor (1099)</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Role:</strong> Senior IC via Tarmac.IO at Drip, a marketing automation platform (~6,000 customers; 100–150M email/SMS events/month). Integration systems, event processing, and production debugging.</p>
+          <ul>
+            <li>Investigated long-standing production failures where millions of messages intermittently failed to send. Identified thread-safety issues in the Shopify gem (credential storage in module-level variables under Sidekiq); proposed and executed migration to Resque’s forked execution model.</li>
+            <li>Led design and implementation of Yotpo integration, processing millions of events monthly.</li>
+            <li>Built webhook-driven event systems, API clients, and Shopify / WooCommerce integrations.</li>
+            <li class="stack-line"><strong>Stack:</strong> Ruby, Rails, JavaScript, Elm, FlightJS · PostgreSQL · Sidekiq, Resque · Honeybadger · CircleCI · GitHub Actions · Minitest · TDD</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Consulta Remédios (Online Pharmacy Marketplace) — Senior Software Engineer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Jul 2020 – Nov 2020</span>
+              <span class="badge"><span class="material-symbols-outlined">location_on</span> Brazil</span>
+              <span class="badge">Independent contractor</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Context:</strong> Short-term role; transitioned to international remote contracts with US companies.</p>
+          <p class="job__block"><strong>Role:</strong> Backend development for a pharmacy marketplace — multi-tenant systems and delivery integrations.</p>
+          <ul>
+            <li>Designed and implemented Uber and Cabify delivery-provider API integrations.</li>
+            <li>Built tenant-isolated operational workflows on SpreeCommerce-based marketplace backend.</li>
+            <li class="stack-line"><strong>Stack:</strong> Ruby, Rails, JavaScript, jQuery · PostgreSQL, MongoDB · New Relic · CircleCI · GitHub Actions · RSpec · Selenium · TDD</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">P2P Milhas (Airline Mileage Marketplace) — Co-Founder &amp; CTO</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Jan 2017 – Jul 2020</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Context:</strong> Co-founded as equity partner with BDS Turismo to enter the B2C segment. Shared backend systems (mileage inventory, purchase, operator-assisted ticket issuance) with separate B2B/B2C e-commerce fronts connected via REST API. Ceased operations in 2020 due to pandemic market conditions.</p>
+          <p class="job__block"><strong>Role:</strong> Co-founder, product strategy, system architecture, and full-stack development for a B2C airline-ticket marketplace.</p>
+          <ul>
+            <li>B2C scale: ~10 tickets/day and ~200K monthly flight searches before pandemic wind-down.</li>
+            <li>Built consumer-facing e-commerce (SpreeCommerce) on top of shared backend systems also used by BDS Turismo.</li>
+            <li>Implemented and connected shared services — mileage inventory, purchase workflows, operator-assisted ticket issuance — to the B2C storefront via REST API.</li>
+            <li>Integrated Ikarus flight search API ecosystem for pricing and search.</li>
+            <li class="stack-line"><strong>Stack:</strong> PHP, Ruby, Rails, SpreeCommerce, CakePHP, JavaScript, jQuery</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">BDS Turismo (B2B Travel Agency Marketplace) — CTO / Senior Software Engineer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Sep 2015 – Dec 2021</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Context:</strong> Hired to build B2B marketplace systems for travel agencies — same business model as MaxMilhas, serving agencies instead of end consumers. Later co-founded P2P Milhas (B2C only) as equity partner; shared backend systems with separate e-commerce fronts. P2P ceased operations in 2020 due to pandemic market conditions (Jul 2020); BDS continued through Dec 2021 (one-week gap before Shift).</p>
+          <p class="job__block"><strong>Role:</strong> CTO — technical leadership, system architecture, and product engineering. Led a team of 2–3 engineers (architecture, code review, mentoring, hiring).</p>
+          <ul>
+            <li>Platform scale: ~120 tickets/day and ~500K monthly flight searches for B2B travel agencies.</li>
+            <li>Designed and implemented shared backend systems: mileage inventory, purchase workflows, operator-assisted ticket issuance, and Cash Milhas (mileage inventory reconciliation) — with separate B2B (BDS Partner Platform) and B2C (P2P Milhas) SpreeCommerce storefronts connected via REST API.</li>
+            <li>Built real-time flight search/pricing engine (cash + mileage fares) and B2B airline-ticket distribution with financial consistency controls.</li>
+            <li>Integrated payment gateways: Mundipag, Stone, and Cielo (credit card) plus bank-slip (boleto) billing with bank integration.</li>
+            <li>Integrated Wintour (travel-agency financial ERP) via SOAP API for financial administration and Ikarus API ecosystem for flight search, pricing, and ticketing.</li>
+            <li>Chrome extension (JavaScript) for semi-automated mileage ticket issuance — aggregated passenger, inventory, and mileage-account data from internal systems and opened airline booking flows in-browser; human operator confirmed login, mileage redemption, and boarding-fee payment by credit card.</li>
+            <li>Configured DigitalOcean infrastructure and deployment pipelines.</li>
+            <li class="stack-line"><strong>Stack:</strong> PHP, Ruby, Rails, SpreeCommerce, CakePHP · PostgreSQL, MySQL · New Relic · Git Flow · CI/CD · TDD</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Ikarus Intelligent Systems — Founder / CEO / CTO</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Feb 2014 – Aug 2015</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Context:</strong> Founded after leaving MaxMilhas to build a software services company. Evolved the flight pricing scraper into a reusable API platform plus e-commerce solutions for travel companies.</p>
+          <ul>
+            <li>Designed and implemented the Ikarus Flight Search API — real-time cash airfare and mileage redemption pricing aggregation with API-first architecture.</li>
+            <li>Delivered ticketing, integration APIs, and custom e-commerce systems for marketplace clients.</li>
+            <li>Platform later became the shared pricing and search layer for BDS Turismo and P2P Milhas.</li>
+            <li class="stack-line"><strong>Stack:</strong> PHP, Ruby, Laravel, Rails, SpreeCommerce, CakePHP, JavaScript · PagSeguro</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">MaxMilhas (Airline Mileage Marketplace) — Software Developer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Apr 2013 – Jan 2014</span>
+            </div>
+          </div>
+          <p class="job__block"><strong>Context:</strong> Early-stage B2C marketplace buying mileage inventory from individuals and reselling flights at competitive prices via real-time fare comparison against airline-direct pricing.</p>
+          <ul>
+            <li><strong>Contracted:</strong> Built real-time flight pricing scraper and customer-facing fare comparison engine (cash vs. mileage-based fares) — core to the company’s conversion model.</li>
+            <li><strong>Employed:</strong> Worked on the PHP monolith handling mileage inventory and marketplace operations.</li>
+            <li class="stack-line"><strong>Stack:</strong> PHP, Ruby, SQL, JavaScript, CakePHP, jQuery</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job__accent"></div>
+          <div class="job__header">
+            <h3 class="job__title">Freelance Web Development — Software Developer</h3>
+            <div class="job__meta">
+              <span class="badge"><span class="material-symbols-outlined">calendar_today</span> Apr 2012 – Mar 2013</span>
+            </div>
+          </div>
+          <ul>
+            <li>Software development, database maintenance, and web data extraction for client projects.</li>
+            <li class="stack-line"><strong>Stack:</strong> PHP, Ruby, SQL, JavaScript, HTML, CSS, CakePHP, jQuery</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="card card-theme--blue info-block" id="education">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">school</span></span>
+        Education
+      </h2>
+      <div class="edu-card">
+        <span class="icon-box"><span class="material-symbols-outlined">school</span></span>
+        <div>
+          <h3>Federal University of Minas Gerais (UFMG)</h3>
+          <p><strong>Bachelor’s Degree in Information Systems</strong> · 2008 – 2014</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-theme--pink" id="languages">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">translate</span></span>
+        Language Skills
+      </h2>
+      <div class="lang-row">
+        <div class="lang-card">
+          <span class="icon-box icon-box--sm"><span class="material-symbols-outlined">flag</span></span>
+          <div class="lang-card__text">
+            <strong>Portuguese</strong>
+            <span>Native</span>
+          </div>
+        </div>
+        <div class="lang-card">
+          <span class="icon-box icon-box--sm"><span class="material-symbols-outlined">language</span></span>
+          <div class="lang-card__text">
+            <strong>English</strong>
+            <span>Advanced — daily use in remote international teams since 2020 (standups, architecture reviews, documentation, presentations).</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card card-theme--green info-block" id="projects">
+      <h2 class="section-title">
+        <span class="icon-box"><span class="material-symbols-outlined">rocket_launch</span></span>
+        Current Technical Projects
+      </h2>
+      <div class="project-card">
+        <div class="project-card__inner">
+          <span class="icon-box"><span class="material-symbols-outlined">smart_toy</span></span>
+          <div>
+            <h3>AI-Assisted Backend Deployment Automation</h3>
+            <p>Personal project focused on orchestrating backend code generation as modular service-like units with strong adherence to structural and behavioral design patterns.</p>
+            <p>The project simulates engineering workflow stages from implementation through pre-deployment validation using AI-assisted generation pipelines.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      var heroBody = document.querySelector(".hero__body");
+      var navBar = document.querySelector(".hero__nav-bar");
+      var floatMenuBg = document.querySelector(".float_menu_background");
+      var links = document.querySelectorAll(".hero__nav-link");
+      var sections = Array.from(links).map(function (link) {
+        return document.getElementById(link.getAttribute("href").slice(1));
+      }).filter(Boolean);
+
+      var isCollapsed = false;
+      var collapseBelow = 16;
+      var expandAbove = 56;
+      var scrollTicking = false;
+
+      function setCollapsed(collapsed) {
+        if (isCollapsed === collapsed) {
+          return;
+        }
+        isCollapsed = collapsed;
+        navBar.classList.toggle("hero__nav-bar--collapsed", collapsed);
+        if (floatMenuBg) {
+          floatMenuBg.classList.toggle("is-visible", collapsed);
+        }
+      }
+
+      function updateCollapse() {
+        if (!heroBody || !navBar) {
+          return;
+        }
+
+        var heroBottom = heroBody.getBoundingClientRect().bottom;
+
+        if (!isCollapsed && heroBottom <= collapseBelow) {
+          setCollapsed(true);
+        } else if (isCollapsed && heroBottom >= expandAbove) {
+          setCollapsed(false);
+        }
+      }
+
+      function getScrollOffset() {
+        return (navBar ? navBar.offsetHeight : 58) + 12;
+      }
+
+      function setActive() {
+        var scrollY = window.scrollY + getScrollOffset();
+        var current = sections[0];
+
+        sections.forEach(function (section) {
+          if (section.offsetTop <= scrollY) {
+            current = section;
+          }
+        });
+
+        links.forEach(function (link) {
+          link.classList.toggle("is-active", link.getAttribute("href") === "#" + current.id);
+        });
+      }
+
+      function onScroll() {
+        if (scrollTicking) {
+          return;
+        }
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+          updateCollapse();
+          setActive();
+          scrollTicking = false;
+        });
+      }
+
+      links.forEach(function (link) {
+        link.addEventListener("click", function () {
+          links.forEach(function (l) { l.classList.remove("is-active"); });
+          link.classList.add("is-active");
+        });
+      });
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      updateCollapse();
+      setActive();
+    })();
+  </script>
+</body>
+</html>

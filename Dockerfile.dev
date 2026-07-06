@@ -1,0 +1,31 @@
+# Development-only image. Production deploys are out of scope: this Rails app
+# is intended to run locally via Docker Compose alongside PostgreSQL.
+ARG RUBY_VERSION=3.3.11
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+ENV LANG=C.UTF-8 \
+    BUNDLE_PATH=/usr/local/bundle
+
+# Packages needed to build native gems (pg) and to talk to PostgreSQL.
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      build-essential \
+      git \
+      libpq-dev \
+      libyaml-dev \
+      pkg-config \
+      postgresql-client && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /rails
+
+# Install gems first to leverage Docker layer caching.
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Copy the rest of the application (overlaid by a bind mount at runtime).
+COPY . .
+
+EXPOSE 3000
+
+CMD ["bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
