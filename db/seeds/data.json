@@ -1,0 +1,380 @@
+{
+  "engagement": {
+    "color": "blue",
+    "title": null,
+    "content": [
+      {
+        "icon": { "name": "work", "color": "purple" },
+        "title": "Engagement",
+        "content": "Independent contractor (1099) — full-time, embedded engineering roles · international remote"
+      },
+      {
+        "icon": { "name": "badge", "color": "teal" },
+        "title": "Work authorization",
+        "content": "Brazilian citizen · remote contractor for US/international companies"
+      },
+      {
+        "icon": { "name": "schedule", "color": "amber" },
+        "title": "Availability",
+        "content": "Available immediately · fully flexible across all time zones (any US, EU, or international working hours)"
+      }
+    ]
+  },
+  "contact": {
+    "color": "blue",
+    "title": "Contact",
+    "content": [
+      {
+        "icon": { "name": "mail", "color": "blue" },
+        "title": "Email",
+        "content": "<a href=\"mailto:fabianozapa@gmail.com\">fabianozapa@gmail.com</a>"
+      },
+      {
+        "icon": { "name": "phone_iphone", "color": "green" },
+        "title": "WhatsApp / Mobile",
+        "content": "+55 11 95875-8572"
+      },
+      {
+        "icon": { "name": "link", "color": "indigo" },
+        "title": "LinkedIn",
+        "content": "<a href=\"https://www.linkedin.com/in/fabiano-ishiy-zaparoli-83738b175\">linkedin.com/in/fabiano-ishiy-zaparoli</a>"
+      },
+      {
+        "icon": { "name": "location_on", "color": "red" },
+        "title": "Location",
+        "content": "Brazil (Remote)"
+      }
+    ]
+  },
+  "summary": {
+    "color": "blue",
+    "title": "Professional Summary",
+    "content": [
+      "Staff Software Engineer with 14 years building fullstack marketplace and SaaS platforms — pricing engines, inventory systems, third-party integrations, and production debugging at scale. Seeking full-time, embedded independent contractor (1099) roles with US and international companies.",
+      "Recently Staff at Effortless Ads on Google Cloud, driving technical direction for property-data ingestion, Google Ads campaign automation, and full-stack product engineering (1,000+ active campaigns; ~60% backend / 40% React). Prior senior individual contributor (IC) work at Drip (100–150M email/SMS events/month) and fullstack engineering at Shift (NASDAQ-listed used-car e-commerce marketplace, SFT). Earlier: CTO at BDS Turismo (B2B travel); co-founder of P2P Milhas (airline mileage marketplace); built the Ikarus flight-search API ecosystem.",
+      "Advanced English through years of daily work in US remote teams. Independent contractor for US/international companies since 2020."
+    ]
+  },
+  "impact": {
+    "color": "gold",
+    "title": "Selected Impact",
+    "content": [
+      "At Effortless Ads, led architecture and implementation of a Google Cloud property-data scraper (Puppeteer, Bright Data, 2Captcha, OpenAI API) — thousands of properties processed daily at ~98% primary-source success; reduced recurring third-party data dependencies across 1,000+ Google Ads campaigns.",
+      "Built fullstack React portals at Effortless Ads (campaign management, user/company admin, property configuration, automation rules, ingestion/sync dashboards) on Google Ads API and Google Analytics API integrations with Stripe campaign payment flows.",
+      "Resolved intermittent failure of millions of marketing messages/month at Drip by diagnosing thread-safety issues in the Shopify gem under Sidekiq and migrating workloads to Resque."
+    ]
+  },
+  "expertise": {
+    "color": "blue",
+    "title": "Core Technical Expertise",
+    "content": [
+      {
+        "title": "Primary — recent production focus (2020–2026)",
+        "content": [
+          {
+            "title": "Languages & frameworks",
+            "content": ["Ruby", "Ruby on Rails", "SpreeCommerce", "JavaScript", "React", "HTML", "CSS"]
+          },
+          {
+            "title": "Data & cloud",
+            "content": ["PostgreSQL", "MySQL", "Redis", "Google Cloud (Cloud Functions, Cloud Run)"]
+          },
+          {
+            "title": "Integrations",
+            "content": ["REST APIs", "SOAP APIs", "Webhooks", "Google Ads API", "Google Analytics API", "Stripe"]
+          },
+          {
+            "title": "Data acquisition & AI",
+            "content": ["Puppeteer", "Bright Data", "2Captcha", "OpenAI API"]
+          },
+          {
+            "title": "Observability & jobs",
+            "content": ["Datadog", "Sidekiq", "Resque", "GitHub Actions", "RSpec", "TDD", "CI/CD"]
+          },
+          {
+            "title": "Focus areas",
+            "content": ["Rails architecture", "metaprogramming", "system integrations", "web crawling & data extraction", "AI-assisted data pipelines", "proptech", "API design", "production debugging", "observability & RCA", "transaction management", "query optimization"]
+          }
+        ]
+      },
+      {
+        "title": "Proficient — regular production use",
+        "content": ["TypeScript", "MongoDB", "Bootstrap", "CircleCI", "Sentry", "Honeybadger", "New Relic", "Minitest", "Capybara", "Docker"]
+      },
+      {
+        "title": "Prior experience — earlier career (2012–2021)",
+        "content": ["PHP", "CakePHP", "Laravel", "jQuery", "Elm", "FlightJS", "DigitalOcean", "Selenium", "Git Flow", "PagSeguro", "Cielo", "Mundipag", "Stone", "Wintour (SOAP ERP)"]
+      }
+    ]
+  },
+  "experience": {
+    "color": "green",
+    "title": "Professional Experience",
+    "content": [
+      {
+        "title": {
+          "company": "Effortless Ads",
+          "job_title": "Staff Software Engineer",
+          "start": { "month": 2, "year": 2023 },
+          "end": { "month": 3, "year": 2026 },
+          "location": { "city": "", "state": "", "country": "US" },
+          "location_type": "Remote",
+          "contract_type": "Independent contractor (1099)"
+        },
+        "content": {
+          "context": null,
+          "role": "Staff-level IC on a Google Cloud–hosted Google Ads automation platform. Translated product feature requests into end-to-end implementation strategy — evaluating system-wide impact, selecting technologies, external APIs/services, and code structure. Shared technical direction with peer engineer; mentored developers on codebase and architecture. Full-stack delivery (~60% backend / 40% React).",
+          "activities": [
+            "Built admin and user-facing React portals with shared component patterns: Google Ads campaign management, user/company administration, property configuration, and automation rule setup.",
+            "Built operational dashboards for property-data ingestion, sync status monitoring, and campaign health across 1,000+ active campaigns.",
+            "Worked on core Google Ads API and Google Analytics API integrations; built proptech property-management features for end users and admins; Stripe integration for campaign payment flows.",
+            "Led architecture and implementation of property-data scraper on Google Cloud Functions (~2 months to v1) to reduce recurring third-party data dependencies for Effortless Ads ad generation, with client-authorized extraction of their own property marketing data.",
+            "Scraper pipeline: Puppeteer with Bright Data (proxy/captcha) and 2Captcha; link discovery via string-approximation algorithms and OpenAI API; multi-page parsing (meta tags, JSON-LD, regex, semantically chunked HTML with chunk classification → field extraction → normalization across 1–6 data sources); image extraction filtered via OpenAI API; ~98% primary-source success with ~2% fallback via Google Search to secondary listing-site sources when primary property sites failed; sync up to ~5 minutes per property; thousands of daily jobs on Cloud Functions and Cloud Run — reduced third-party integration dependency while preserving data consistency across 1,000+ active campaigns.",
+            "Delivered campaign automation and property-data ingestion on a fully Google Cloud–based platform.",
+            "Role ended Apr 2026 following post-acquisition team restructuring."
+          ],
+          "stack": {
+            "languages_and_libs": ["Ruby", "Rails", "React", "JavaScript", "MySQL", "Redis"],
+            "others": ["Google Cloud Functions", "Cloud Run", "Puppeteer", "Bright Data", "2Captcha", "OpenAI API (GPT-4x/5.x, text-embedding-3)", "Google Ads API", "Google Analytics API", "Stripe", "Datadog", "GitHub Actions", "RSpec", "TDD"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "Shift",
+          "job_title": "Senior Ruby on Rails Developer",
+          "start": { "month": 11, "year": 2021 },
+          "end": { "month": 1, "year": 2023 },
+          "location": { "city": "", "state": "", "country": "US" },
+          "location_type": "Remote",
+          "contract_type": "Independent contractor (1099)"
+        },
+        "content": {
+          "context": null,
+          "role": "Full-stack product engineering at Shift Technologies (NASDAQ: SFT), a used-car e-commerce marketplace — direct consumer vehicle acquisition, digital inspection, home test-drive delivery, and no-haggle fixed pricing.",
+          "activities": [
+            "Designed and implemented a vehicle-data scraping solution for an external platform, with data extraction authorized by the platform owner for Shift’s used-car marketplace operations.",
+            "Contributed to marketplace features and backend services through collaborative, subdivided team delivery.",
+            "Contract ended during company-wide contractor reductions amid financial restructuring."
+          ],
+          "stack": {
+            "languages_and_libs": ["Ruby", "Rails", "TypeScript", "JavaScript", "Bootstrap"],
+            "others": ["PostgreSQL", "MySQL", "MongoDB", "Sentry", "CircleCI", "GitHub Actions", "RSpec", "TDD"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "Drip / Tarmac.IO",
+          "job_title": "Senior Software Engineer",
+          "start": { "month": 10, "year": 2020 },
+          "end": { "month": 11, "year": 2021 },
+          "location": { "city": "", "state": "", "country": "US" },
+          "location_type": "Remote",
+          "contract_type": "Independent contractor (1099)"
+        },
+        "content": {
+          "context": null,
+          "role": "Senior IC via Tarmac.IO at Drip, a marketing automation platform (~6,000 customers; 100–150M email/SMS events/month). Integration systems, event processing, and production debugging.",
+          "activities": [
+            "Investigated long-standing production failures where millions of messages intermittently failed to send. Identified thread-safety issues in the Shopify gem (credential storage in module-level variables under Sidekiq); proposed and executed migration to Resque’s forked execution model.",
+            "Led design and implementation of Yotpo integration, processing millions of events monthly.",
+            "Built webhook-driven event systems, API clients, and Shopify / WooCommerce integrations."
+          ],
+          "stack": {
+            "languages_and_libs": ["Ruby", "Rails", "JavaScript", "Elm", "FlightJS"],
+            "others": ["PostgreSQL", "Sidekiq", "Resque", "Honeybadger", "CircleCI", "GitHub Actions", "Minitest", "TDD"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "Consulta Remédios (Online Pharmacy Marketplace)",
+          "job_title": "Senior Software Engineer",
+          "start": { "month": 6, "year": 2020 },
+          "end": { "month": 10, "year": 2020 },
+          "location": { "city": "", "state": "", "country": "BR" },
+          "location_type": "Remote",
+          "contract_type": "Independent contractor"
+        },
+        "content": {
+          "context": "Short-term role; transitioned to international remote contracts with US companies.",
+          "role": "Backend development for a pharmacy marketplace — multi-tenant systems and delivery integrations.",
+          "activities": [
+            "Designed and implemented Uber and Cabify delivery-provider API integrations.",
+            "Built tenant-isolated operational workflows on SpreeCommerce-based marketplace backend."
+          ],
+          "stack": {
+            "languages_and_libs": ["Ruby", "Rails", "JavaScript", "jQuery"],
+            "others": ["PostgreSQL", "MongoDB", "New Relic", "CircleCI", "GitHub Actions", "RSpec", "Selenium", "TDD"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "P2P Milhas (Airline Mileage Marketplace)",
+          "job_title": "Co-Founder & CTO",
+          "start": { "month": 0, "year": 2017 },
+          "end": { "month": 6, "year": 2020 },
+          "location": { "city": "Belo Horizonte", "state": "MG", "country": "BR" },
+          "location_type": "On-site",
+          "contract_type": "Co-founder (equity partner)"
+        },
+        "content": {
+          "context": "Co-founded as equity partner with BDS Turismo to enter the B2C segment. Shared backend systems (mileage inventory, purchase, operator-assisted ticket issuance) with separate B2B/B2C e-commerce fronts connected via REST API. Ceased operations in 2020 due to pandemic market conditions.",
+          "role": "Co-founder, product strategy, system architecture, and full-stack development for a B2C airline-ticket marketplace.",
+          "activities": [
+            "B2C scale: ~10 tickets/day and ~200K monthly flight searches before pandemic wind-down.",
+            "Built consumer-facing e-commerce (SpreeCommerce) on top of shared backend systems also used by BDS Turismo.",
+            "Implemented and connected shared services — mileage inventory, purchase workflows, operator-assisted ticket issuance — to the B2C storefront via REST API.",
+            "Integrated Ikarus flight search API ecosystem for pricing and search."
+          ],
+          "stack": {
+            "languages_and_libs": ["PHP", "Ruby", "Rails", "SpreeCommerce", "CakePHP", "JavaScript", "jQuery"],
+            "others": null
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "BDS Turismo (B2B Travel Agency Marketplace)",
+          "job_title": "CTO / Senior Software Engineer",
+          "start": { "month": 8, "year": 2015 },
+          "end": { "month": 11, "year": 2021 },
+          "location": { "city": "Belo Horizonte", "state": "MG", "country": "BR" },
+          "location_type": "On-site",
+          "contract_type": "Full-time"
+        },
+        "content": {
+          "context": "Hired to build B2B marketplace systems for travel agencies — same business model as MaxMilhas, serving agencies instead of end consumers. Later co-founded P2P Milhas (B2C only) as equity partner; shared backend systems with separate e-commerce fronts. P2P ceased operations in 2020 due to pandemic market conditions (Jul 2020); BDS continued through Dec 2021 (one-week gap before Shift).",
+          "role": "CTO — technical leadership, system architecture, and product engineering. Led a team of 2–3 engineers (architecture, code review, mentoring, hiring).",
+          "activities": [
+            "Platform scale: ~120 tickets/day and ~500K monthly flight searches for B2B travel agencies.",
+            "Designed and implemented shared backend systems: mileage inventory, purchase workflows, operator-assisted ticket issuance, and Cash Milhas (mileage inventory reconciliation) — with separate B2B (BDS Partner Platform) and B2C (P2P Milhas) SpreeCommerce storefronts connected via REST API.",
+            "Built real-time flight search/pricing engine (cash + mileage fares) and B2B airline-ticket distribution with financial consistency controls.",
+            "Integrated payment gateways: Mundipag, Stone, and Cielo (credit card) plus bank-slip (boleto) billing with bank integration.",
+            "Integrated Wintour (travel-agency financial ERP) via SOAP API for financial administration and Ikarus API ecosystem for flight search, pricing, and ticketing.",
+            "Chrome extension (JavaScript) for semi-automated mileage ticket issuance — aggregated passenger, inventory, and mileage-account data from internal systems and opened airline booking flows in-browser; human operator confirmed login, mileage redemption, and boarding-fee payment by credit card.",
+            "Configured DigitalOcean infrastructure and deployment pipelines."
+          ],
+          "stack": {
+            "languages_and_libs": ["PHP", "Ruby", "Rails", "SpreeCommerce", "CakePHP"],
+            "others": ["PostgreSQL", "MySQL", "New Relic", "Git Flow", "CI/CD", "TDD"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "Ikarus Intelligent Systems",
+          "job_title": "Founder / CEO / CTO",
+          "start": { "month": 1, "year": 2014 },
+          "end": { "month": 7, "year": 2015 },
+          "location": { "city": "Belo Horizonte", "state": "MG", "country": "BR" },
+          "location_type": "On-site",
+          "contract_type": "Founder"
+        },
+        "content": {
+          "context": "Founded after leaving MaxMilhas to build a software services company. Evolved the flight pricing scraper into a reusable API platform plus e-commerce solutions for travel companies.",
+          "role": null,
+          "activities": [
+            "Designed and implemented the Ikarus Flight Search API — real-time cash airfare and mileage redemption pricing aggregation with API-first architecture.",
+            "Delivered ticketing, integration APIs, and custom e-commerce systems for marketplace clients.",
+            "Platform later became the shared pricing and search layer for BDS Turismo and P2P Milhas."
+          ],
+          "stack": {
+            "languages_and_libs": ["PHP", "Ruby", "Laravel", "Rails", "SpreeCommerce", "CakePHP", "JavaScript"],
+            "others": ["PagSeguro"]
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "MaxMilhas (Airline Mileage Marketplace)",
+          "job_title": "Software Developer",
+          "start": { "month": 3, "year": 2013 },
+          "end": { "month": 0, "year": 2014 },
+          "location": { "city": "Belo Horizonte", "state": "MG", "country": "BR" },
+          "location_type": "On-site",
+          "contract_type": "Contractor / Employee"
+        },
+        "content": {
+          "context": "Early-stage B2C marketplace buying mileage inventory from individuals and reselling flights at competitive prices via real-time fare comparison against airline-direct pricing.",
+          "role": null,
+          "activities": [
+            "<strong>Contracted:</strong> Built real-time flight pricing scraper and customer-facing fare comparison engine (cash vs. mileage-based fares) — core to the company’s conversion model.",
+            "<strong>Employed:</strong> Worked on the PHP monolith handling mileage inventory and marketplace operations."
+          ],
+          "stack": {
+            "languages_and_libs": ["PHP", "Ruby", "SQL", "JavaScript", "CakePHP", "jQuery"],
+            "others": null
+          }
+        }
+      },
+      {
+        "title": {
+          "company": "Freelance Web Development",
+          "job_title": "Software Developer",
+          "start": { "month": 3, "year": 2012 },
+          "end": { "month": 2, "year": 2013 },
+          "location": { "city": "Belo Horizonte", "state": "MG", "country": "BR" },
+          "location_type": "Remote",
+          "contract_type": "Freelance"
+        },
+        "content": {
+          "context": null,
+          "role": null,
+          "activities": [
+            "Software development, database maintenance, and web data extraction for client projects."
+          ],
+          "stack": {
+            "languages_and_libs": ["PHP", "Ruby", "SQL", "JavaScript", "HTML", "CSS", "CakePHP", "jQuery"],
+            "others": null
+          }
+        }
+      }
+    ]
+  },
+  "education": {
+    "color": "blue",
+    "title": "Education",
+    "content": [
+      {
+        "icon": { "name": "school", "color": "blue" },
+        "title": "Federal University of Minas Gerais (UFMG)",
+        "description": "Bachelor’s Degree in Information Systems",
+        "start": { "month": null, "year": 2008 },
+        "end": { "month": null, "year": 2014 }
+      }
+    ]
+  },
+  "languages": {
+    "color": "pink",
+    "title": "Language Skills",
+    "content": [
+      {
+        "icon": { "name": "flag", "color": "pink" },
+        "title": "Portuguese",
+        "content": "Native"
+      },
+      {
+        "icon": { "name": "language", "color": "pink" },
+        "title": "English",
+        "content": "Advanced — daily use in remote international teams since 2020 (standups, architecture reviews, documentation, presentations)."
+      }
+    ]
+  },
+  "projects": {
+    "color": "green",
+    "title": "Current Technical Projects",
+    "content": [
+      {
+        "icon": { "name": "smart_toy", "color": "green" },
+        "title": "AI-Assisted Backend Deployment Automation",
+        "content": [
+          "Personal project focused on orchestrating backend code generation as modular service-like units with strong adherence to structural and behavioral design patterns.",
+          "The project simulates engineering workflow stages from implementation through pre-deployment validation using AI-assisted generation pipelines."
+        ]
+      }
+    ]
+  }
+}

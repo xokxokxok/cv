@@ -1,0 +1,12 @@
+{
+    "questions": [
+        {
+            "question": "Have you ever been the primary owner of a production application? Briefly describe your responsibilities.",
+            "answer": "Yes. At BDS Turismo, I was the IT lead. When I joined the company, it was using Google Sheets to manage all its operations. The company sold airline tickets—issued using airline loyalty points (miles)—to travel agencies (B2B). These miles were purchased from individual users who did not intend to use them (B2C). Upon arrival, I created an online store for the sales division (B2B) and developed a separate application for purchasing (B2C) and managing the acquired miles. We subsequently hired three junior programmers to contribute to and expand the company's ecosystem. We improved existing applications, built an application for the (semi-automated or assisted) issuance of tickets using miles, and integrated it with a third-party financial system specific to the travel industry. All applications were integrated to ensure the automation of sales operations, ticket issuance, inventory management, and financial processes. Later, we created P2P Milhas, a B2C online store integrated into that same ecosystem."
+        },
+        {
+            "question": "Briefly describe a complex third-party API integration you built and the biggest challenge you solved during implementation.",
+            "answer": "I have carried out countless third-party API integrations, but perhaps the most challenging was building a scraper for the company EffortlessAds. The goal was to create a scraper capable of reading any webpage for an apartment, property, house, or residence and extracting information—such as the name, logo, icon, description, and unit types (with pricing and photos)—into a JSON format. This required using AI APIs to interpret the content and parse the data. Key challenges included preventing AI hallucinations and segmenting the webpage without losing semantic meaning, all while staying within the AI's maximum context window. I had to implement a form of data pre-processing and split the extraction process based on pre-classifying the content. However, the hardest part was dealing with CAPTCHAs; I had to use multiple third-party APIs to avoid detection and solve them. Since success wasn't guaranteed, I employed multiple APIs and strategies in parallel, selecting the one that worked for each specific request."
+        }
+    ]
+}

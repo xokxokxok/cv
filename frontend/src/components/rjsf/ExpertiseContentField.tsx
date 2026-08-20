@@ -1,6 +1,8 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import type { FieldProps } from "@rjsf/utils";
-import { Button, Input, Select, Space, Typography } from "antd";
+import { Button, Col, Input, Row, Segmented, Space } from "antd";
+import { useEffect, useState, type ReactNode } from "react";
+import { StringListEditor } from "./ExperienceFields";
 
 type GroupedTopic = {
   title: string;
@@ -14,19 +16,16 @@ function detectContentKind(value: unknown): ContentKind {
 
   if (Array.isArray(value)) {
     if (value.length === 0) return "string-array";
-    if (typeof value[0] === "string") return "string-array";
-    if (
-      typeof value[0] === "object" &&
-      value[0] !== null &&
-      "title" in value[0]
-    ) {
+    const first = value[0];
+    if (typeof first === "string") return "string-array";
+    if (typeof first === "object" && first !== null && "title" in first) {
       return "grouped-list";
     }
+    return "string-array";
   }
 
   if (
     typeof value === "object" &&
-    value !== null &&
     "title" in value &&
     "content" in value
   ) {
@@ -37,9 +36,9 @@ function detectContentKind(value: unknown): ContentKind {
 }
 
 const KIND_OPTIONS = [
-  { value: "string-array", label: "Plain list (strings)" },
-  { value: "grouped-list", label: "Grouped topics (title + list)" },
-  { value: "grouped-object", label: "Single group (title + list)" },
+  { value: "string-array", label: "List" },
+  { value: "grouped-list", label: "Topics" },
+  { value: "grouped-object", label: "Single topic" },
 ] as const;
 
 function emptyValueForKind(kind: ContentKind): unknown {
@@ -53,69 +52,18 @@ function emptyValueForKind(kind: ContentKind): unknown {
   }
 }
 
-interface StringListEditorProps {
-  value: string[];
-  onChange: (value: string[]) => void;
-  disabled?: boolean;
-  readonly?: boolean;
-}
-
-function StringListEditor({
-  value,
-  onChange,
-  disabled,
-  readonly,
-}: StringListEditorProps) {
-  const items = value.length > 0 ? value : [""];
-
-  function updateItem(index: number, next: string) {
-    const copy = [...items];
-    copy[index] = next;
-    onChange(copy);
-  }
-
-  function addItem() {
-    onChange([...items, ""]);
-  }
-
-  function removeItem(index: number) {
-    const copy = items.filter((_, i) => i !== index);
-    onChange(copy.length > 0 ? copy : [""]);
-  }
-
+function bordered(children: ReactNode) {
   return (
-    <Space direction="vertical" style={{ width: "100%" }}>
-      {items.map((item, index) => (
-        <Space key={index} align="start" style={{ width: "100%" }}>
-          <Input
-            value={item}
-            disabled={disabled || readonly}
-            onChange={(e) => updateItem(index, e.target.value)}
-            placeholder={`Item ${index + 1}`}
-          />
-          {!readonly && (
-            <Button
-              danger
-              type="text"
-              icon={<MinusCircleOutlined />}
-              disabled={disabled || items.length === 1}
-              onClick={() => removeItem(index)}
-            />
-          )}
-        </Space>
-      ))}
-      {!readonly && (
-        <Button
-          type="dashed"
-          icon={<PlusOutlined />}
-          disabled={disabled}
-          onClick={addItem}
-          block
-        >
-          Add item
-        </Button>
-      )}
-    </Space>
+    <div
+      style={{
+        border: "1px solid #c5c5c5",
+        borderRadius: 8,
+        padding: "12px 16px",
+        background: "#fafafa",
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -135,10 +83,7 @@ function GroupedListEditor({
   const groups = value.length > 0 ? value : [{ title: "", content: [""] }];
 
   function updateGroup(index: number, patch: Partial<GroupedTopic>) {
-    const copy = groups.map((group, i) =>
-      i === index ? { ...group, ...patch } : group,
-    );
-    onChange(copy);
+    onChange(groups.map((group, i) => (i === index ? { ...group, ...patch } : group)));
   }
 
   function addGroup() {
@@ -151,43 +96,40 @@ function GroupedListEditor({
   }
 
   return (
-    <Space direction="vertical" size="large" style={{ width: "100%" }}>
+    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       {groups.map((group, index) => (
-        <div
-          key={index}
-          style={{
-            border: "1px solid #f0f0f0",
-            borderRadius: 8,
-            padding: 16,
-            background: "#fafafa",
-          }}
-        >
-          <Space direction="vertical" style={{ width: "100%" }}>
-            <Space align="start" style={{ width: "100%" }}>
-              <Input
-                value={group.title}
-                disabled={disabled || readonly}
-                onChange={(e) => updateGroup(index, { title: e.target.value })}
-                placeholder="Group title"
-                style={{ flex: 1 }}
+        <div key={index}>
+          {bordered(
+            <Space direction="vertical" size="small" style={{ width: "100%" }}>
+              <Row gutter={8} align="middle" wrap={false}>
+                <Col flex="auto">
+                  <Input
+                    value={group.title}
+                    disabled={disabled || readonly}
+                    onChange={(e) => updateGroup(index, { title: e.target.value })}
+                    placeholder="Topic title"
+                  />
+                </Col>
+                {!readonly && (
+                  <Col flex="none">
+                    <Button
+                      danger
+                      type="text"
+                      icon={<MinusCircleOutlined />}
+                      disabled={disabled || groups.length === 1}
+                      onClick={() => removeGroup(index)}
+                    />
+                  </Col>
+                )}
+              </Row>
+              <StringListEditor
+                value={group.content}
+                disabled={disabled}
+                readonly={readonly}
+                onChange={(content) => updateGroup(index, { content })}
               />
-              {!readonly && (
-                <Button
-                  danger
-                  type="text"
-                  icon={<MinusCircleOutlined />}
-                  disabled={disabled || groups.length === 1}
-                  onClick={() => removeGroup(index)}
-                />
-              )}
-            </Space>
-            <StringListEditor
-              value={group.content}
-              disabled={disabled}
-              readonly={readonly}
-              onChange={(content) => updateGroup(index, { content })}
-            />
-          </Space>
+            </Space>,
+          )}
         </div>
       ))}
       {!readonly && (
@@ -198,7 +140,7 @@ function GroupedListEditor({
           onClick={addGroup}
           block
         >
-          Add group
+          Add topic
         </Button>
       )}
     </Space>
@@ -206,27 +148,36 @@ function GroupedListEditor({
 }
 
 /**
- * Handles expertise `content` values that may be a string array, a list of
- * grouped topics, or a single grouped object (schema anyOf + nested data).
+ * Custom editor for expertise group `content` (anyOf: string[] | grouped object | grouped list in data).
+ * Must set ui:fieldReplacesAnyOrOneOf so rjsf does not also render the anyOf branch UI.
  */
 export default function ExpertiseContentField(props: FieldProps) {
   const { formData, onChange, disabled, readonly, fieldPathId } = props;
-  const kind = detectContentKind(formData);
+  const detectedKind = detectContentKind(formData);
+  const [kind, setKind] = useState<ContentKind>(detectedKind);
+
+  useEffect(() => {
+    setKind(detectedKind);
+  }, [detectedKind]);
+
+  function emit(value: unknown) {
+    onChange(value, fieldPathId.path);
+  }
 
   function switchKind(nextKind: ContentKind) {
     if (nextKind === kind) return;
-    onChange(emptyValueForKind(nextKind), fieldPathId.path);
+    setKind(nextKind);
+    emit(emptyValueForKind(nextKind));
   }
 
   return (
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       {!readonly && (
-        <Select
+        <Segmented
           value={kind}
           options={[...KIND_OPTIONS]}
           disabled={disabled}
-          onChange={switchKind}
-          style={{ maxWidth: 360 }}
+          onChange={(value) => switchKind(value as ContentKind)}
         />
       )}
 
@@ -235,55 +186,46 @@ export default function ExpertiseContentField(props: FieldProps) {
           value={Array.isArray(formData) ? (formData as string[]) : [""]}
           disabled={disabled}
           readonly={readonly}
-          onChange={(value) => onChange(value, fieldPathId.path)}
+          onChange={emit}
         />
       )}
 
       {kind === "grouped-list" && (
         <GroupedListEditor
-          value={
-            Array.isArray(formData) ? (formData as GroupedTopic[]) : []
-          }
+          value={Array.isArray(formData) ? (formData as GroupedTopic[]) : []}
           disabled={disabled}
           readonly={readonly}
-          onChange={(value) => onChange(value, fieldPathId.path)}
+          onChange={emit}
         />
       )}
 
       {kind === "grouped-object" && (
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <Input
-            value={(formData as GroupedTopic)?.title ?? ""}
-            disabled={disabled || readonly}
-            placeholder="Group title"
-            onChange={(e) =>
-              onChange(
-                {
-                  ...(formData as GroupedTopic),
+        bordered(
+          <Space direction="vertical" size="small" style={{ width: "100%" }}>
+            <Input
+              value={(formData as GroupedTopic)?.title ?? ""}
+              disabled={disabled || readonly}
+              placeholder="Topic title"
+              onChange={(e) =>
+                emit({
                   title: e.target.value,
                   content: (formData as GroupedTopic)?.content ?? [""],
-                },
-                fieldPathId.path,
-              )
-            }
-          />
-          <Typography.Text type="secondary">Items</Typography.Text>
-          <StringListEditor
-            value={(formData as GroupedTopic)?.content ?? [""]}
-            disabled={disabled}
-            readonly={readonly}
-            onChange={(content) =>
-              onChange(
-                {
-                  ...(formData as GroupedTopic),
+                })
+              }
+            />
+            <StringListEditor
+              value={(formData as GroupedTopic)?.content ?? [""]}
+              disabled={disabled}
+              readonly={readonly}
+              onChange={(content) =>
+                emit({
                   title: (formData as GroupedTopic)?.title ?? "",
                   content,
-                },
-                fieldPathId.path,
-              )
-            }
-          />
-        </Space>
+                })
+              }
+            />
+          </Space>,
+        )
       )}
     </Space>
   );
