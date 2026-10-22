@@ -5,12 +5,14 @@ import type {
   StrictRJSFSchema,
 } from "@rjsf/utils";
 import { getTemplate, getUiOptions } from "@rjsf/utils";
-import { stripedRowStyle } from "./stripes";
 
 /**
- * Separates array entries visually without redundant "Entry 1" headings.
- * - bordered: subtle box per object item
- * - plain: bare input rows (string lists)
+ * Chrome for a single array entry.
+ *
+ * - `plain`    — bare row (long text items).
+ * - `compact`  — narrow inline cell (short values).
+ * - `collapse` — no card of its own; the accordion panel already frames it.
+ * - default    — soft card with a hover toolbar.
  */
 export default function DocumentArrayFieldItemTemplate<
   T = any,
@@ -21,7 +23,6 @@ export default function DocumentArrayFieldItemTemplate<
     children,
     buttonsProps,
     hasToolbar,
-    index,
     registry,
     uiSchema,
     parentUiSchema,
@@ -40,38 +41,46 @@ export default function DocumentArrayFieldItemTemplate<
   >("ArrayFieldItemButtonsTemplate", registry, uiOptions);
 
   const toolbar = hasToolbar ? (
-    <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 4 }}>
+    <span className="cv-item-toolbar" style={{ flex: "none" }}>
       <ArrayFieldItemButtonsTemplate {...buttonsProps} />
-    </div>
+    </span>
   ) : null;
+
+  if (itemVariant === "compact") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", flex: "0 1 210px" }}>
+        <div style={{ flex: 1, minWidth: 0 }}>{children}</div>
+        {toolbar}
+      </div>
+    );
+  }
+
+  if (itemVariant === "collapse") {
+    return (
+      <div className="cv-collapse-item">
+        {children}
+        {toolbar && <div className="cv-entry-actions">{toolbar}</div>}
+      </div>
+    );
+  }
 
   if (itemVariant === "plain") {
     return (
       <div
-        style={{
-          ...stripedRowStyle(index),
-          display: "flex",
-          gap: 8,
-          alignItems: "flex-start",
-        }}
+        className="cv-plain-item"
+        style={{ display: "flex", gap: 8, alignItems: "flex-start", padding: "4px 0" }}
       >
-        <div style={{ flex: 1 }}>{children}</div>
+        <div style={{ flex: 1, minWidth: 0 }}>{children}</div>
         {toolbar}
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        border: "1px solid #c5c5c5",
-        borderRadius: 8,
-        padding: "12px 16px",
-        marginBottom: 12,
-        background: "#fafafa",
-      }}
-    >
-      {toolbar}
+    <div className="cv-entry-card">
+      {toolbar && (
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>{toolbar}</div>
+      )}
       {children}
     </div>
   );

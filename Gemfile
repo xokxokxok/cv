@@ -30,6 +30,9 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Redis-backed Active Job adapter used in development [https://github.com/sidekiq/sidekiq]
+gem "sidekiq", "~> 8.1"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

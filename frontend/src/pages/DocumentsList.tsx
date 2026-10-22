@@ -68,11 +68,17 @@ export default function DocumentsList() {
     {
       title: "Actions",
       key: "actions",
-      width: 200,
+      width: 280,
       render: (_, record) => (
         <Space>
           <Button size="small" onClick={() => navigate(`/documents/${record.id}`)}>
             Edit
+          </Button>
+          <Button
+            size="small"
+            onClick={() => navigate(`/documents/${record.id}/questions`)}
+          >
+            Questions
           </Button>
           <Popconfirm
             title="Delete this document?"

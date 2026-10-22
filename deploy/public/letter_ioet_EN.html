@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fabiano Ishiy Zaparoli — Cover Letter (ioet)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Slab:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page-bg: #f4f7fa;
+      --card-bg: #ffffff;
+      --card-border: #e8edf1;
+      --text-primary: #2c3e50;
+      --text-muted: #8492a6;
+      --link: #448aff;
+      --accent-blue: #4099ff;
+      --max-width: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--page-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 40px 24px 56px;
+    }
+
+    .letter {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 40px 44px;
+      box-shadow: 0 2px 10px rgba(69, 90, 100, 0.08);
+    }
+
+    .letter__header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .letter__name {
+      font-family: "Roboto Slab", Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 8px;
+    }
+
+    .letter__contact {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .letter__meta {
+      margin: 28px 0 24px;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    .letter__subject {
+      font-weight: 700;
+      margin: 0 0 24px;
+      font-size: 0.95rem;
+    }
+
+    .letter__body p {
+      margin: 0 0 16px;
+      text-align: justify;
+    }
+
+    .letter__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .placeholder {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+
+    .letter__signoff {
+      margin-top: 28px;
+    }
+
+    .letter__signoff p {
+      margin: 0 0 4px;
+    }
+
+    .letter__cv-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        padding: 0;
+        max-width: none;
+      }
+
+      .letter {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+
+      a {
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 20px 16px 32px;
+      }
+
+      .letter {
+        padding: 28px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <article class="letter">
+      <header class="letter__header">
+        <h1 class="letter__name">Fabiano Ishiy Zaparoli</h1>
+        <p class="letter__contact">
+          Brazil (Remote)<br>
+          <a href="mailto:fabianozapa@gmail.com">fabianozapa@gmail.com</a> &middot;
+          <a href="tel:+5511958758572">+55 11 95875-8572</a><br>
+          <a href="https://www.linkedin.com/in/fabiano-ishiy-zaparoli-83738b175">linkedin.com/in/fabiano-ishiy-zaparoli</a> &middot;
+          <a href="https://fabiano-ishiy-zaparoli.web.app">fabiano-ishiy-zaparoli.web.app</a>
+        </p>
+      </header>
+
+      <div class="letter__meta">
+        <p>August 24, 2026</p>
+        <p>
+          Hiring Team<br>
+          ioet Inc.
+        </p>
+      </div>
+
+      <p class="letter__subject">Re: Senior Ruby on Rails Engineer (AI-Powered Platform) &mdash; Remote, LATAM</p>
+
+      <div class="letter__body">
+        <p>Dear ioet Hiring Team,</p>
+
+        <p>
+          I am applying for the Senior Ruby on Rails Engineer position. I am a Staff Software Engineer based in Brazil
+          with 14 years of experience building production Rails platforms, and for the past three years my work has sat
+          exactly where this role does: a mature Rails application on one side, LLM-powered features shipping to
+          production on the other, and a React frontend in between. I have worked as an embedded engineer on US remote
+          teams since 2020, communicating in English daily.
+        </p>
+
+        <p>
+          Most recently I was Staff Software Engineer at Effortless Ads, a Google Cloud&ndash;hosted Google Ads
+          automation platform serving 1,000+ active campaigns, where I split my time roughly 60% backend Rails and 40%
+          React. The work most relevant to this role was a property-data ingestion pipeline I designed and led from
+          scratch to v1 in about two months. It is a structured LLM integration rather than a chat feature: link
+          discovery combining string-approximation scoring with the OpenAI API; multi-page parsing across meta tags,
+          JSON-LD and regex; semantically chunked HTML with chunk classification feeding field extraction; and
+          normalization that reconciles one to six competing data sources per property. Embeddings
+          (text-embedding-3) drive the retrieval and matching steps, and an LLM-based filter selects usable property
+          images. It reached ~98% primary-source success, with a ~2% fallback path through Google Search to secondary
+          listing sites when a primary source failed, and it runs thousands of jobs a day on Cloud Functions and Cloud
+          Run. Getting there required measuring output quality continuously &mdash; per-field extraction accuracy,
+          per-source disagreement rates, and regression checks against a labeled property set &mdash; because with
+          non-deterministic models a prompt change that helps one listing type quietly breaks another. That evaluation
+          discipline, more than any individual prompt, is what made the pipeline safe to run unattended at that volume.
+        </p>
+
+        <p>
+          On the Rails side, my background is large production systems and hard debugging. At Drip (~6,000 customers,
+          100&ndash;150M email/SMS events per month) I traced a long-standing failure that intermittently dropped
+          millions of marketing messages to thread-safety issues in the Shopify gem storing credentials in module-level
+          variables under Sidekiq, and I proposed and executed the migration to Resque's forked execution model; I also
+          led the Yotpo integration processing millions of events monthly. At Shift Technologies (NASDAQ: SFT) I did
+          full-stack product engineering on a used-car marketplace. Earlier, as CTO at BDS Turismo, I architected a B2B
+          travel marketplace handling ~120 tickets/day and ~500K monthly flight searches &mdash; a real-time
+          pricing engine, inventory and reconciliation systems, SOAP ERP and multiple payment-gateway integrations
+          &mdash; while leading a team of two to three engineers through code review, architecture, and mentoring.
+          Across all of it: REST and SOAP APIs, webhooks, Google Ads and Google Analytics APIs, Stripe, PostgreSQL and
+          MySQL, Redis, Datadog and Sentry, RSpec and TDD, CI/CD.
+        </p>
+
+        <p>
+          What draws me to this role is that it treats AI capability as engineering work inside a real product rather
+          than as a separate research track. I have found that the interesting problems are the unglamorous ones
+          &mdash; how a retrieval step degrades when the source changes shape, how you tell a genuine model regression
+          from noise, how much structure to impose on a model's output before it becomes brittle &mdash; and those are
+          answered with the same instincts that make someone effective in a large Rails codebase. I would also welcome
+          the mentoring side: helping a team adopt AI practices that hold up in production is largely a matter of
+          showing where the failure modes actually live.
+        </p>
+
+        <p>
+          I am based in Brazil, available immediately, and fully flexible across time zones. My full CV is linked below.
+          Thank you for your consideration &mdash; I would be glad to discuss how this background fits what your team
+          is building.
+        </p>
+      </div>
+
+      <footer class="letter__signoff">
+        <p>Sincerely,</p>
+        <p><strong>Fabiano Ishiy Zaparoli</strong></p>
+        <p class="letter__cv-link">
+          Full CV: <a href="https://fabiano-ishiy-zaparoli.web.app">fabiano-ishiy-zaparoli.web.app</a> &middot;
+          <a href="CV_EN.pdf">Download PDF</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>

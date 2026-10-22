@@ -1,279 +1,574 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$defs": {
-      "icon": {
-        "type": "object",
-        "required": ["name", "color"],
-        "properties": {
-          "name": { "type": "string" },
-          "color": { "type": "string" }
+  "type": "object",
+  "$defs": {
+    "icon": {
+      "type": "object",
+      "required": [
+        "name",
+        "color"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "required": [
+    "engagement",
+    "contact",
+    "summary",
+    "impact",
+    "expertise",
+    "experience",
+    "education",
+    "languages",
+    "projects"
+  ],
+  "properties": {
+    "impact": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
-    "type": "object",
-    "required": ["engagement", "contact", "summary", "impact", "expertise", "experience", "education", "languages", "projects"],
-    "properties": {
-      "engagement": {
-        "type": "object",
-        "required": ["content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": ["string", "null"] },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["icon", "title", "content"],
-              "properties": {
-                "icon": { "$ref": "#/$defs/icon" },
-                "title": { "type": "string" },
-                "content": { "type": "string" }
+    "contact": {
+      "type": "object",
+      "required": [
+        "icon",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "icon",
+              "title",
+              "content"
+            ],
+            "properties": {
+              "icon": {
+                "$ref": "#/$defs/icon"
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
               }
             }
           }
         }
-      },
-      "contact": {
-        "type": "object",
-        "required": ["icon", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["icon", "title", "content"],
-              "properties": {
-                "icon": { "$ref": "#/$defs/icon" },
-                "title": { "type": "string" },
-                "content": { "type": "string" }
-              }
-            }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         }
-      },
-      "summary": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
-        }
-      },
-      "impact": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
-        }
-      },
-      "expertise": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["title", "content"],
-              "properties": {
-                "title": { "type": "string" },
-                "content": {
-                  "anyOf": [
-                    {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    },
-                    {
-                      "type": "object",
-                      "required": ["title", "content"],
-                      "properties": {
-                        "title": { "type": "string" },
-                        "content": { "type": "array", "items": { "type": "string" } }
-                      }
-                    }
-                  ]
+      }
+    },
+    "projects": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "icon",
+              "title",
+              "content"
+            ],
+            "properties": {
+              "icon": {
+                "$ref": "#/$defs/icon"
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "string"
                 }
               }
             }
           }
         }
-      },
-      "experience": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["title", "content"],
-              "properties": {
-                "title": {
-                  "type": "object",
-                  "required": ["company", "job_title", "start", "location", "location_type", "contract_type"],
-                  "properties": {
-                    "company": { "type": "string" },
-                    "job_title": { "type": "string" },
-                    "start": {
-                      "type": "object",
-                      "required": ["year"],
-                      "properties": {
-                        "month": { "type": "integer" },
-                        "year": { "type": "integer" }
+      }
+    },
+    "education": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "icon",
+              "title",
+              "description",
+              "start",
+              "end"
+            ],
+            "properties": {
+              "end": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "year"
+                    ],
+                    "properties": {
+                      "year": {
+                        "type": "integer"
+                      },
+                      "month": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
                       }
-                    },
-                    "end": {
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "required": ["year"],
-                          "properties": {
-                            "month": { "type": "integer" },
-                            "year": { "type": "integer" }
-                          }
-                        },
-                        { "type": "null" }
-                      ]
-                    },
-                    "location": {
-                      "type": "object",
-                      "required": ["city", "state", "country"],
-                      "properties": {
-                        "city": { "type": "string" },
-                        "state": { "type": "string" },
-                        "country": { "type": "string" }
-                      }
-                    },
-                    "location_type": { "type": "string" },
-                    "contract_type": { "type": "string" }
+                    }
+                  },
+                  {
+                    "type": "null"
                   }
-                },
-                "content": {
-                  "type": "object",
-                  "required": ["activities", "stack"],
-                  "properties": {
-                    "context": { "type": ["string", "null"] },
-                    "role": { "type": ["string", "null"] },
-                    "activities": {
-                      "type": "array",
-                      "items": { "type": "string" }
-                    },
-                    "stack": {
+                ]
+              },
+              "icon": {
+                "$ref": "#/$defs/icon"
+              },
+              "start": {
+                "type": "object",
+                "required": [
+                  "year"
+                ],
+                "properties": {
+                  "year": {
+                    "type": "integer"
+                  },
+                  "month": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "expertise": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "content"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "anyOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "type": "array",
+                    "items": {
                       "type": "object",
-                      "required": ["languages_and_libs"],
+                      "required": [
+                        "title",
+                        "content"
+                      ],
                       "properties": {
-                        "languages_and_libs": {
-                          "type": "array",
-                          "items": { "type": "string" }
+                        "title": {
+                          "type": "string"
                         },
-                        "others": {
-                          "anyOf": [
-                            { "type": "array", "items": { "type": "string" } },
-                            { "type": "null" }
-                          ]
+                        "content": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "title",
+                      "content"
+                    ],
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
                         }
                       }
                     }
                   }
-                }
+                ]
               }
             }
           }
         }
-      },
-      "education": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["icon", "title", "description", "start", "end"],
-              "properties": {
-                "icon": { "$ref": "#/$defs/icon" },
-                "title": { "type": "string" },
-                "description": { "type": "string" },
-                "start": {
-                  "type": "object",
-                  "required": ["year"],
-                  "properties": {
-                    "month": { "type": ["integer", "null"] },
-                    "year": { "type": "integer" }
-                  }
-                },
-                "end": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "required": ["year"],
-                      "properties": {
-                        "month": { "type": ["integer", "null"] },
-                        "year": { "type": "integer" }
+      }
+    },
+    "languages": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "icon",
+              "title",
+              "content"
+            ],
+            "properties": {
+              "icon": {
+                "$ref": "#/$defs/icon"
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "engagement": {
+      "type": "object",
+      "required": [
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "icon",
+              "title",
+              "content"
+            ],
+            "properties": {
+              "icon": {
+                "$ref": "#/$defs/icon"
+              },
+              "title": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "experience": {
+      "type": "object",
+      "required": [
+        "icon",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "content"
+            ],
+            "properties": {
+              "title": {
+                "type": "object",
+                "required": [
+                  "company",
+                  "job_title",
+                  "start",
+                  "location",
+                  "location_type",
+                  "contract_type"
+                ],
+                "properties": {
+                  "end": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "year"
+                        ],
+                        "properties": {
+                          "year": {
+                            "type": "integer"
+                          },
+                          "month": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      {
+                        "type": "null"
                       }
-                    },
-                    { "type": "null" }
-                  ]
+                    ]
+                  },
+                  "start": {
+                    "type": "object",
+                    "required": [
+                      "year"
+                    ],
+                    "properties": {
+                      "year": {
+                        "type": "integer"
+                      },
+                      "month": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "company": {
+                    "type": "string"
+                  },
+                  "location": {
+                    "type": "object",
+                    "required": [
+                      "country"
+                    ],
+                    "properties": {
+                      "city": {
+                        "type": "string"
+                      },
+                      "state": {
+                        "type": "string"
+                      },
+                      "country": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "job_title": {
+                    "type": "string"
+                  },
+                  "contract_type": {
+                    "type": "string"
+                  },
+                  "location_type": {
+                    "type": "string"
+                  }
                 }
-              }
-            }
-          }
-        }
-      },
-      "languages": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["icon", "title", "content"],
-              "properties": {
-                "icon": { "$ref": "#/$defs/icon" },
-                "title": { "type": "string" },
-                "content": { "type": "string" }
-              }
-            }
-          }
-        }
-      },
-      "projects": {
-        "type": "object",
-        "required": ["icon", "title", "content"],
-        "properties": {
-          "color": { "type": "string" },
-          "title": { "type": "string" },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": ["icon", "title", "content"],
-              "properties": {
-                "icon": { "$ref": "#/$defs/icon" },
-                "title": { "type": "string" },
-                "content": {
-                  "type": "array",
-                  "items": { "type": "string" }
+              },
+              "content": {
+                "type": "object",
+                "required": [
+                  "activities",
+                  "stack"
+                ],
+                "properties": {
+                  "role": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "stack": {
+                    "type": "object",
+                    "required": [
+                      "languages_and_libs"
+                    ],
+                    "properties": {
+                      "others": {
+                        "anyOf": [
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "languages_and_libs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "context": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "activities": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -282,3 +577,4 @@
       }
     }
   }
+}

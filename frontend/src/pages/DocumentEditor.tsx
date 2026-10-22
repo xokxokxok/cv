@@ -1,7 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  Alert,
   App,
+  Badge,
   Button,
   Card,
   Col,
@@ -25,19 +27,27 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 import RjsfForm from "@rjsf/antd";
+import type CoreForm from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
-import type { RJSFSchema } from "@rjsf/utils";
+import type { RJSFSchema, RJSFValidationError } from "@rjsf/utils";
 import { getDocument, updateDocument } from "../api";
 import { documentUiSchema } from "../components/rjsf/documentUiSchema";
 import { documentFields } from "../components/rjsf/documentFields";
 import {
   documentFormContext,
   documentTemplates,
+  documentWidgets,
 } from "../components/rjsf/documentTemplates";
 import {
   DOCUMENT_SECTIONS,
   SECTION_MAP,
+  sectionIconName,
 } from "../components/rjsf/documentSections";
+import { MaterialIcon } from "../components/rjsf/CvWidgets";
+import {
+  errorLocation,
+  groupErrorsBySection,
+} from "../components/rjsf/validationErrors";
 
 const { useBreakpoint } = Grid;
 
@@ -58,6 +68,13 @@ export default function DocumentEditor() {
   const [activeSection, setActiveSection] = useState<string>(
     DOCUMENT_SECTIONS[0].key,
   );
+  // Validation runs on save; after the first failed save the form validates
+  // live so errors disappear as soon as they are fixed.
+  const formRef = useRef<CoreForm>(null);
+  const [showErrors, setShowErrors] = useState(false);
+  const [errors, setErrors] = useState<RJSFValidationError[]>([]);
+  const errorsBySection = useMemo(() => groupErrorsBySection(errors), [errors]);
+  const nameMissing = !name.trim();
 
   useEffect(() => {
     let active = true;
@@ -97,6 +114,47 @@ export default function DocumentEditor() {
     }
   }
 
+  function handleValidationErrors(nextErrors: RJSFValidationError[]) {
+    setErrors(nextErrors);
+  }
+
+  /** Validates name + form data against the document's JSON Schema. */
+  function validateBeforeSave(currentSchema: RJSFSchema): boolean {
+    setShowErrors(true);
+    // validateForm() marks the invalid fields inline; the error list is
+    // computed here with the same validator so it is available right away.
+    formRef.current?.validateForm();
+    const { errors: validationErrors } = validator.validateFormData(
+      formData,
+      currentSchema,
+    );
+    handleValidationErrors(validationErrors);
+    const formValid = validationErrors.length === 0;
+
+    if (!formValid) {
+      const failingSections = new Set(
+        Object.keys(groupErrorsBySection(validationErrors)),
+      );
+      // Jump to the first section with errors unless the current one has some.
+      if (!failingSections.has(activeSection)) {
+        const firstFailing = DOCUMENT_SECTIONS.find((s) => failingSections.has(s.key));
+        if (firstFailing) setActiveSection(firstFailing.key);
+      }
+      const count = validationErrors.length;
+      message.error(
+        `Fix ${count} validation error${count === 1 ? "" : "s"} before saving.`,
+      );
+      return false;
+    }
+
+    if (nameMissing) {
+      message.error("Document name is required.");
+      return false;
+    }
+
+    return true;
+  }
+
   async function handleSave() {
     let parsedSchema: unknown;
     try {
@@ -106,6 +164,8 @@ export default function DocumentEditor() {
       return;
     }
 
+    if (!validateBeforeSave(parsedSchema as RJSFSchema)) return;
+
     setSaving(true);
     try {
       await updateDocument(documentId, {
@@ -114,6 +174,8 @@ export default function DocumentEditor() {
         json_schema: parsedSchema,
         json_data: formData,
       });
+      setShowErrors(false);
+      handleValidationErrors([]);
       message.success("Document saved");
     } catch (error) {
       message.error((error as Error).message);
@@ -134,8 +196,21 @@ export default function DocumentEditor() {
   const activeMeta = SECTION_MAP[activeSection] ?? DOCUMENT_SECTIONS[0];
   const prevSection = DOCUMENT_SECTIONS[activeIndex - 1];
   const nextSection = DOCUMENT_SECTIONS[activeIndex + 1];
-  const ActiveIcon = activeMeta.icon;
   const isDesktop = screens.lg;
+  const activeErrors = showErrors ? (errorsBySection[activeSection] ?? []) : [];
+  // Errors outside the known sections (e.g. a section the editor has no tab for).
+  const otherErrors = showErrors
+    ? errors.filter((error) => {
+        const section = Object.keys(errorsBySection).find((key) =>
+          errorsBySection[key].includes(error),
+        );
+        return !section || !SECTION_MAP[section];
+      })
+    : [];
+
+  function sectionErrorCount(key: string) {
+    return showErrors ? (errorsBySection[key]?.length ?? 0) : 0;
+  }
 
   function goToSection(key: string) {
     setActiveSection(key);
@@ -149,11 +224,19 @@ export default function DocumentEditor() {
       style={{ borderInlineEnd: "none", background: "transparent" }}
       onClick={({ key }) => setActiveSection(key)}
       items={DOCUMENT_SECTIONS.map((section) => {
-        const Icon = section.icon;
+        const errorCount = sectionErrorCount(section.key);
         return {
           key: section.key,
-          icon: <Icon />,
-          label: section.label,
+          // Follows the section's icon field live, as it is edited in the form.
+          icon: <MaterialIcon name={sectionIconName(section.key, formData)} size={16} />,
+          label: errorCount ? (
+            <Space size={6}>
+              {section.label}
+              <Badge count={errorCount} size="small" />
+            </Space>
+          ) : (
+            section.label
+          ),
         };
       })}
     />
@@ -176,7 +259,7 @@ export default function DocumentEditor() {
               fontSize: 20,
             }}
           >
-            <ActiveIcon />
+            <MaterialIcon name={sectionIconName(activeSection, formData)} size={22} />
           </span>
           <Typography.Title level={4} style={{ margin: 0 }}>
             {activeMeta.label}
@@ -192,17 +275,45 @@ export default function DocumentEditor() {
 
       <Divider style={{ margin: "16px 0" }} />
 
-      <RjsfForm
-        schema={schema}
-        uiSchema={documentUiSchema}
-        formData={formData}
-        validator={validator}
-        fields={documentFields}
-        templates={documentTemplates}
-        formContext={formContext}
-        onChange={(e) => setFormData(e.formData)}
-        liveValidate={false}
-      />
+      {activeErrors.length > 0 && (
+        <Alert
+          type="error"
+          showIcon
+          style={{ marginBottom: 16 }}
+          message={`${activeErrors.length} validation error${activeErrors.length === 1 ? "" : "s"} in this section`}
+          description={
+            <ul style={{ margin: 0, paddingInlineStart: 18 }}>
+              {activeErrors.map((error, index) => (
+                <li key={`${error.property}-${index}`}>
+                  {errorLocation(error) ? <strong>{errorLocation(error)}: </strong> : null}
+                  {error.message}
+                </li>
+              ))}
+            </ul>
+          }
+        />
+      )}
+
+      <div className="cv-form">
+        <RjsfForm
+          ref={formRef}
+          schema={schema}
+          uiSchema={documentUiSchema}
+          formData={formData}
+          validator={validator}
+          fields={documentFields}
+          widgets={documentWidgets}
+          templates={documentTemplates}
+          formContext={formContext}
+          onChange={(e) => {
+            setFormData(e.formData);
+            if (showErrors) handleValidationErrors(e.errors ?? []);
+          }}
+          onError={handleValidationErrors}
+          liveValidate={showErrors ? "onChange" : undefined}
+          showErrorList={false}
+        />
+      </div>
 
       <Divider style={{ margin: "20px 0 12px" }} />
       <Row justify="space-between" align="middle">
@@ -227,8 +338,11 @@ export default function DocumentEditor() {
   );
 
   const dataTab = isDesktop ? (
-    <Row gutter={24} align="top">
-      <Col flex="260px">
+    // `wrap={false}` keeps the nav and the form side by side: without it a wide
+    // control inside the form (a long tag list, an expanded entry) grows the
+    // column's natural width and Ant Design wraps it onto the next line.
+    <Row gutter={24} align="top" wrap={false}>
+      <Col flex="0 0 280px">
         <div style={{ position: "sticky", top: 96 }}>
           <Card
             size="small"
@@ -239,7 +353,7 @@ export default function DocumentEditor() {
           </Card>
         </div>
       </Col>
-      <Col flex="auto" style={{ minWidth: 0 }}>
+      <Col flex="1 1 auto" style={{ minWidth: 0 }}>
         {formPanel}
       </Col>
     </Row>
@@ -249,10 +363,13 @@ export default function DocumentEditor() {
         value={activeSection}
         style={{ width: "100%" }}
         onChange={(key) => goToSection(key)}
-        options={DOCUMENT_SECTIONS.map((section) => ({
-          value: section.key,
-          label: section.label,
-        }))}
+        options={DOCUMENT_SECTIONS.map((section) => {
+          const errorCount = sectionErrorCount(section.key);
+          return {
+            value: section.key,
+            label: errorCount ? `${section.label} (${errorCount} errors)` : section.label,
+          };
+        })}
       />
       {formPanel}
     </Space>
@@ -318,7 +435,13 @@ export default function DocumentEditor() {
       <Card size="small">
         <Row gutter={16}>
           <Col xs={24} md={16}>
-            <AntForm.Item label="Document name" style={{ marginBottom: 0 }}>
+            <AntForm.Item
+              label="Document name"
+              required
+              style={{ marginBottom: 0 }}
+              validateStatus={showErrors && nameMissing ? "error" : undefined}
+              help={showErrors && nameMissing ? "Document name is required" : undefined}
+            >
               <Input value={name} onChange={(e) => setName(e.target.value)} />
             </AntForm.Item>
           </Col>
@@ -337,6 +460,24 @@ export default function DocumentEditor() {
           </Col>
         </Row>
       </Card>
+
+      {otherErrors.length > 0 && (
+        <Alert
+          type="error"
+          showIcon
+          message="Validation errors outside the editable sections"
+          description={
+            <ul style={{ margin: 0, paddingInlineStart: 18 }}>
+              {otherErrors.map((error, index) => (
+                <li key={`${error.property}-${index}`}>
+                  <strong>{error.property || "(root)"}: </strong>
+                  {error.message}
+                </li>
+              ))}
+            </ul>
+          }
+        />
+      )}
 
       <Tabs
         defaultActiveKey="data"

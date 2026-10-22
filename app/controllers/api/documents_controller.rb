@@ -7,6 +7,10 @@ module Api
       render json: { error: "Document not found" }, status: :not_found
     end
 
+    rescue_from ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed do |error|
+      render json: { errors: error.record.errors.full_messages }, status: :unprocessable_entity
+    end
+
     def index
       render json: Document.order(:id)
     end
@@ -15,25 +19,31 @@ module Api
       render json: @document
     end
 
+    # Each write runs in a transaction together with the job enqueue: if the job
+    # can't be enqueued (e.g. Redis is down) the database change is rolled back,
+    # so the record and the published files don't drift apart.
     def create
       document = Document.new(document_params)
-      if document.save
-        render json: document, status: :created
-      else
-        render json: { errors: document.errors.full_messages }, status: :unprocessable_entity
+      Document.transaction do
+        document.save!
+        WriteDocumentFilesJob.perform_later(document.json_schema, document.json_data)
       end
+      render json: document, status: :created
     end
 
     def update
-      if @document.update(document_params)
-        render json: @document
-      else
-        render json: { errors: @document.errors.full_messages }, status: :unprocessable_entity
+      Document.transaction do
+        @document.update!(document_params)
+        WriteDocumentFilesJob.perform_later(@document.json_schema, @document.json_data)
       end
+      render json: @document
     end
 
     def destroy
-      @document.destroy
+      Document.transaction do
+        @document.destroy!
+        DeleteDocumentFilesJob.perform_later
+      end
       head :no_content
     end
 

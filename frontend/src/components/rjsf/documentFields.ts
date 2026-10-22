@@ -1,9 +1,11 @@
 import type { RegistryFieldsType } from "@rjsf/utils";
-import EndDateField, { NullableStringArrayField } from "./ExperienceFields";
+import EndDateField, { StartPeriodField } from "./PeriodFields";
 import ExpertiseContentField from "./ExpertiseContentField";
+import TagListField from "./TagListField";
 
 export const documentFields: RegistryFieldsType = {
-  ExpertiseContentField,
   EndDateField,
-  NullableStringArrayField,
+  ExpertiseContentField,
+  StartPeriodField,
+  TagListField,
 };

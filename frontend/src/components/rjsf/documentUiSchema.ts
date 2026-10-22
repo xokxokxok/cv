@@ -1,4 +1,5 @@
 import type { UiSchema } from "@rjsf/utils";
+import { experienceHeader } from "./entryHeaders";
 
 export const DOCUMENT_SECTION_KEYS = [
   "engagement",
@@ -12,6 +13,14 @@ export const DOCUMENT_SECTION_KEYS = [
   "projects",
 ] as const;
 
+/**
+ * Layout conventions used below
+ * -----------------------------
+ * `ui:options.span` sizes a field in Ant Design's 24-column grid, so a month
+ * or a colour never occupies the same width as a company name. Spans in each
+ * group are chosen to add up to 24 so fields line up in clean rows.
+ */
+
 /** Hide field / object chrome (no legend, no Form.Item label). */
 const hidden = {
   "ui:label": false,
@@ -24,112 +33,129 @@ const silentArray: UiSchema = {
   "ui:options": { label: false, itemVariant: "bordered" },
 };
 
-/** Multiline (textarea) string item for long-form list entries. */
+/** Multiline item used inside long-form bullet lists. */
 const multilineItem: UiSchema = {
   ...hidden,
   "ui:widget": "textarea",
-  "ui:options": { label: false, rows: 3 },
+  "ui:options": { label: false, rows: 2 },
 };
 
-/** Plain array of multiline textareas, no per-item label (long paragraphs). */
+/** Unlabelled list of paragraphs. */
 const plainTextareaArray: UiSchema = {
   ...hidden,
-  "ui:options": { label: false, itemVariant: "plain" },
+  "ui:options": { label: false, itemVariant: "plain", addLabel: "Add paragraph" },
   items: multilineItem,
 };
 
-/** Labeled plain array of multiline textareas (long-form bullet lists). */
+/** Labelled list of paragraphs. */
 const labeledTextareaArray: UiSchema = {
-  "ui:options": { itemVariant: "plain" },
+  "ui:options": { itemVariant: "plain", addLabel: "Add item" },
   items: multilineItem,
 };
 
-/** Icon name + color on the same row — no "Icon" wrapper. */
+/** Short values entered as tags rather than one input per line. */
+const tagArray: UiSchema = {
+  "ui:field": "TagListField",
+  "ui:fieldReplacesAnyOrOneOf": true,
+  ...hidden,
+};
+
+/** Icon glyph + accent colour, side by side. */
 const iconInline: UiSchema = {
   ...hidden,
-  "ui:options": { inline: true, label: false },
+  "ui:options": { label: false },
   "ui:order": ["name", "color"],
-  name: { "ui:title": "Icon" },
-  color: { "ui:title": "Color" },
+  name: { "ui:title": "Icon", "ui:widget": "IconNameWidget", "ui:options": { span: 13 } },
+  color: { "ui:title": "Color", "ui:widget": "ColorWidget", "ui:options": { span: 11 } },
 };
 
-const periodInline: UiSchema = {
+/** Month + year on one line. */
+const startPeriod: UiSchema = {
+  "ui:title": "Started",
+  "ui:field": "StartPeriodField",
+  "ui:fieldReplacesAnyOrOneOf": true,
+};
+
+const endPeriod: UiSchema = {
+  "ui:title": "Ended",
+  "ui:field": "EndDateField",
+  "ui:fieldReplacesAnyOrOneOf": true,
+};
+
+/**
+ * Section icon + accent colour + heading, shown in the collapsed appearance
+ * panel. The icon is a Material Symbols name (see SectionIconWidget).
+ */
+const sectionMeta: UiSchema = {
   ...hidden,
-  "ui:options": { inline: true, label: false },
-  "ui:order": ["month", "year"],
-  month: { "ui:title": "Month" },
-  year: { "ui:title": "Year" },
+  "ui:order": ["icon", "color", "title", "content"],
+  icon: {
+    "ui:title": "Icon",
+    "ui:widget": "SectionIconWidget",
+    "ui:options": { span: 8 },
+  },
+  color: {
+    "ui:title": "Card theme",
+    "ui:widget": "ThemeColorWidget",
+    "ui:options": { span: 6 },
+  },
+  title: { "ui:title": "Heading", "ui:options": { span: 10 } },
 };
 
-const locationInline: UiSchema = {
-  ...hidden,
-  "ui:options": { inline: true, label: false },
-  "ui:order": ["city", "state", "country"],
-  city: { "ui:title": "City" },
-  state: { "ui:title": "State" },
-  country: { "ui:title": "Country" },
-};
-
+/** icon + title on one row, then a single-line value. */
 const listEntryItem: UiSchema = {
   ...hidden,
-  "ui:options": { layout: "listEntry", label: false },
+  "ui:options": { label: false },
   "ui:order": ["icon", "title", "content"],
-  icon: iconInline,
-  title: { "ui:title": "Title" },
-  content: {
-    "ui:title": "Content",
-    "ui:widget": "textarea",
-    "ui:options": { rows: 2 },
-  },
+  icon: { ...iconInline, "ui:options": { label: false, span: 9 } },
+  title: { "ui:title": "Label", "ui:options": { span: 15 } },
+  content: { "ui:title": "Value", "ui:options": { span: 24 } },
 };
 
 const listEntriesArray: UiSchema = {
   ...silentArray,
+  "ui:options": { label: false, itemVariant: "bordered", addLabel: "Add card" },
   items: listEntryItem,
 };
 
-const sectionMeta: UiSchema = {
-  ...hidden,
-  "ui:order": ["color", "title", "icon", "content"],
-  color: { "ui:title": "Color" },
-  title: { "ui:title": "Title" },
-  icon: iconInline,
-};
-
-/** Array items without per-item labels; optional section label via ui:title. */
-const labeledPlainArray: UiSchema = {
-  "ui:options": { itemVariant: "plain" },
-  items: hidden,
-};
-
+/** Job identity: two rows of fields sized to their content. */
 const experienceJobFields: UiSchema = {
-  "ui:options": { layout: "experienceJob" },
+  ...hidden,
+  "ui:options": { label: false },
   "ui:order": [
     "company",
     "job_title",
     "start",
     "end",
-    "location",
     "location_type",
+    "location",
     "contract_type",
   ],
-  company: { "ui:title": "Company" },
-  job_title: { "ui:title": "Job title" },
-  start: {
-    ...periodInline,
-    month: { "ui:title": "Start month" },
-    year: { "ui:title": "Start year" },
+  company: { "ui:title": "Company", "ui:options": { span: 10 } },
+  job_title: { "ui:title": "Job title", "ui:options": { span: 14 } },
+  start: { ...startPeriod, "ui:options": { span: 7 } },
+  end: { ...endPeriod, "ui:options": { span: 10 } },
+  location_type: {
+    "ui:title": "Location type",
+    "ui:widget": "LocationTypeWidget",
+    "ui:options": { span: 7 },
   },
-  end: {
-    "ui:title": "End date",
-    "ui:field": "EndDateField",
-    "ui:fieldReplacesAnyOrOneOf": true,
+  location: {
+    ...hidden,
+    "ui:options": { label: false, span: 17 },
+    "ui:order": ["city", "state", "country"],
+    city: { "ui:title": "City", "ui:options": { span: 10 } },
+    state: { "ui:title": "State", "ui:options": { span: 7 } },
+    country: { "ui:title": "Country", "ui:options": { span: 7 } },
   },
-  location: locationInline,
-  location_type: { "ui:title": "Location type" },
-  contract_type: { "ui:title": "Contract type" },
+  contract_type: {
+    "ui:title": "Contract",
+    "ui:widget": "ContractTypeWidget",
+    "ui:options": { span: 7 },
+  },
 };
 
+/** What the role actually involved — long text, so full-width rows. */
 const experienceRoleBody: UiSchema = {
   "ui:options": { layout: "stacked" },
   "ui:order": ["context", "role", "activities", "stack"],
@@ -143,75 +169,64 @@ const experienceRoleBody: UiSchema = {
     "ui:widget": "textarea",
     "ui:options": { rows: 3 },
   },
-  activities: {
-    "ui:title": "Activities",
-    ...labeledTextareaArray,
-  },
+  activities: { "ui:title": "Activities", ...labeledTextareaArray },
   stack: {
-    "ui:options": { layout: "stacked" },
+    ...hidden,
+    "ui:options": { label: false },
     "ui:order": ["languages_and_libs", "others"],
     languages_and_libs: {
-      "ui:title": "Languages and libraries",
-      ...labeledPlainArray,
+      ...tagArray,
+      "ui:options": { label: false, span: 12, title: "Languages and libraries" },
     },
     others: {
-      "ui:title": "Other tools",
-      "ui:field": "NullableStringArrayField",
-      "ui:fieldReplacesAnyOrOneOf": true,
+      ...tagArray,
+      "ui:options": { label: false, span: 12, title: "Other tools" },
     },
   },
 };
 
 const experienceEntry: UiSchema = {
   ...hidden,
-  "ui:options": { layout: "experienceRole", label: false, itemVariant: "bordered" },
+  "ui:options": { label: false, itemVariant: "collapse" },
+  "ui:order": ["title", "content"],
   title: experienceJobFields,
   content: experienceRoleBody,
 };
 
 const educationEntry: UiSchema = {
   ...hidden,
-  "ui:options": { layout: "entry", label: false },
+  "ui:options": { label: false },
   "ui:order": ["icon", "title", "description", "start", "end"],
-  icon: iconInline,
-  title: { "ui:title": "Institution" },
+  icon: { ...iconInline, "ui:options": { label: false, span: 9 } },
+  title: { "ui:title": "Institution", "ui:options": { span: 15 } },
   description: {
     "ui:title": "Description",
     "ui:widget": "textarea",
-    "ui:options": { rows: 2 },
+    "ui:options": { rows: 2, span: 24 },
   },
-  start: {
-    ...periodInline,
-    month: { "ui:title": "Start month" },
-    year: { "ui:title": "Start year" },
-  },
-  end: {
-    "ui:title": "End date",
-    "ui:field": "EndDateField",
-    "ui:fieldReplacesAnyOrOneOf": true,
-  },
+  start: { ...startPeriod, "ui:options": { span: 9 } },
+  end: { ...endPeriod, "ui:options": { span: 15 } },
 };
 
 const projectEntry: UiSchema = {
   ...hidden,
-  "ui:options": { layout: "entry", label: false },
+  "ui:options": { label: false },
   "ui:order": ["icon", "title", "content"],
-  icon: iconInline,
-  title: { "ui:title": "Title" },
-  content: {
-    "ui:title": "Characteristics",
-    ...labeledTextareaArray,
-  },
+  icon: { ...iconInline, "ui:options": { label: false, span: 9 } },
+  title: { "ui:title": "Project", "ui:options": { span: 15 } },
+  content: { "ui:title": "Characteristics", ...labeledTextareaArray },
 };
 
 const expertiseEntry: UiSchema = {
   ...hidden,
+  "ui:options": { label: false },
   "ui:order": ["title", "content"],
-  title: { "ui:title": "Group" },
+  title: { "ui:title": "Group", "ui:options": { span: 24 } },
   content: {
     "ui:field": "ExpertiseContentField",
     "ui:fieldReplacesAnyOrOneOf": true,
     ...hidden,
+    "ui:options": { label: false, span: 24 },
   },
 };
 
@@ -219,31 +234,17 @@ export const documentUiSchema: UiSchema = {
   "ui:order": [...DOCUMENT_SECTION_KEYS],
   "ui:submitButtonOptions": { norender: true },
 
-  engagement: {
-    ...hidden,
-    ...sectionMeta,
-    content: listEntriesArray,
-  },
-  contact: {
-    ...hidden,
-    ...sectionMeta,
-    content: listEntriesArray,
-  },
-  summary: {
-    ...hidden,
-    ...sectionMeta,
-    content: plainTextareaArray,
-  },
-  impact: {
-    ...hidden,
-    ...sectionMeta,
-    content: plainTextareaArray,
-  },
+  engagement: { ...hidden, ...sectionMeta, content: listEntriesArray },
+  contact: { ...hidden, ...sectionMeta, content: listEntriesArray },
+  languages: { ...hidden, ...sectionMeta, content: listEntriesArray },
+  summary: { ...hidden, ...sectionMeta, content: plainTextareaArray },
+  impact: { ...hidden, ...sectionMeta, content: plainTextareaArray },
   expertise: {
     ...hidden,
     ...sectionMeta,
     content: {
       ...silentArray,
+      "ui:options": { label: false, itemVariant: "bordered", addLabel: "Add group" },
       items: expertiseEntry,
     },
   },
@@ -252,6 +253,12 @@ export const documentUiSchema: UiSchema = {
     ...sectionMeta,
     content: {
       ...silentArray,
+      "ui:options": {
+        label: false,
+        itemVariant: "collapse",
+        itemHeader: experienceHeader,
+        addLabel: "Add role",
+      },
       items: experienceEntry,
     },
   },
@@ -260,19 +267,24 @@ export const documentUiSchema: UiSchema = {
     ...sectionMeta,
     content: {
       ...silentArray,
+      "ui:options": {
+        label: false,
+        itemVariant: "bordered",
+        addLabel: "Add education",
+      },
       items: educationEntry,
     },
-  },
-  languages: {
-    ...hidden,
-    ...sectionMeta,
-    content: listEntriesArray,
   },
   projects: {
     ...hidden,
     ...sectionMeta,
     content: {
       ...silentArray,
+      "ui:options": {
+        label: false,
+        itemVariant: "bordered",
+        addLabel: "Add project",
+      },
       items: projectEntry,
     },
   },

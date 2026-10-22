@@ -1,0 +1,167 @@
+/*
+ * Editor chrome for the document form.
+ *
+ * The goal is that the page reads as content first: entry frames are quiet,
+ * row-level controls only appear when the user is actually on that row, and
+ * long sections collapse into a short list of headings.
+ */
+
+/* --- Array entries -------------------------------------------------- */
+
+.cv-entry-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 14px 16px 2px;
+  margin-bottom: 10px;
+  background: #fcfcfc;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.cv-entry-card:hover,
+.cv-entry-card:focus-within {
+  border-color: #d9e6ff;
+  background: #fff;
+}
+
+/* Row controls stay out of the way until the row is touched. */
+.cv-entry-card .cv-item-toolbar,
+.cv-plain-item .cv-item-toolbar {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.cv-entry-card:hover .cv-item-toolbar,
+.cv-entry-card:focus-within .cv-item-toolbar,
+.cv-plain-item:hover .cv-item-toolbar,
+.cv-plain-item:focus-within .cv-item-toolbar {
+  opacity: 1;
+}
+
+/* Compact tag-like cells never hide their remove button — they are tiny. */
+.array-item-list > * + * {
+  margin-top: 0;
+}
+
+/* --- Collapsible entries (Professional Experience) ------------------- */
+
+.cv-entry-collapse {
+  background: transparent;
+  border-radius: 8px;
+}
+
+.cv-entry-collapse .ant-collapse-item {
+  border-radius: 8px !important;
+  margin-bottom: 8px;
+  border: 1px solid #f0f0f0;
+  background: #fcfcfc;
+  overflow: hidden;
+}
+
+.cv-entry-collapse .ant-collapse-item:hover {
+  border-color: #d9e6ff;
+}
+
+.cv-entry-collapse .ant-collapse-item-active {
+  border-color: #91caff;
+  background: #fff;
+}
+
+.cv-entry-collapse .ant-collapse-header {
+  align-items: center !important;
+  padding: 12px 14px !important;
+}
+
+.cv-entry-collapse .ant-collapse-content {
+  background: #fff;
+  border-top: 1px solid #f5f5f5;
+}
+
+.cv-entry-collapse .ant-collapse-content-box {
+  padding: 16px 16px 4px !important;
+}
+
+/* --- Appearance panel ------------------------------------------------ */
+
+.cv-appearance .ant-collapse-header {
+  padding: 4px 0 !important;
+}
+
+.cv-appearance .ant-collapse-content-box {
+  padding: 8px 0 0 !important;
+}
+
+/* --- Form density ---------------------------------------------------- */
+
+/* Labels sit close to their control so a field reads as one unit. */
+.cv-form .ant-form-item-label {
+  padding-bottom: 2px !important;
+}
+
+.cv-form .ant-form-item-label > label {
+  height: auto;
+  color: #595959;
+  font-size: 13px;
+}
+
+/* rjsf renders a fieldset per array; strip the browser defaults. */
+.cv-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+/* Tag inputs should breathe like a text input, not collapse to one line. */
+.cv-form .ant-select-multiple .ant-select-selector {
+  min-height: 32px;
+  padding-block: 2px;
+}
+
+/* Footer actions of an expanded entry, kept clearly separate from its fields. */
+.cv-entry-actions {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #f5f5f5;
+  margin-top: 4px;
+  padding-top: 6px;
+}
+
+.cv-collapse-item > fieldset:last-of-type,
+.cv-collapse-item .ant-form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* The last row inside an entry should not add a second gap before the footer. */
+.cv-collapse-item > div > .ant-row:last-child .ant-form-item {
+  margin-bottom: 4px;
+}
+
+/* --- Shrinking ------------------------------------------------------- */
+
+/*
+ * A flex item refuses to shrink below its content width unless min-width is
+ * cleared. Without this, one wide control (a long tag list, an expanded entry)
+ * pushes the form column past the viewport and the section nav wraps below it.
+ */
+.cv-form,
+.cv-form .ant-row,
+.cv-form .ant-col,
+.cv-form .ant-form-item,
+.cv-form .ant-form-item-control,
+.cv-form .ant-form-item-control-input,
+.cv-form .ant-form-item-control-input-content,
+.cv-form .ant-collapse-item,
+.cv-form .ant-collapse-content-box {
+  min-width: 0;
+}
+
+/* Long entry titles ellipsize instead of widening the accordion header. */
+.cv-entry-collapse .ant-collapse-header-text {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Tag lists wrap inside their column rather than stretching it. */
+.cv-form .ant-select {
+  max-width: 100%;
+}

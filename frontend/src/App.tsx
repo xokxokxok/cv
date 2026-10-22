@@ -3,6 +3,7 @@ import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import DocumentsList from "./pages/DocumentsList";
 import DocumentCreate from "./pages/DocumentCreate";
 import DocumentEditor from "./pages/DocumentEditor";
+import QuestionsList from "./pages/QuestionsList";
 
 const { Header, Content } = Layout;
 
@@ -34,6 +35,10 @@ export default function App() {
           <Route path="/" element={<Navigate to="/documents" replace />} />
           <Route path="/documents" element={<DocumentsList />} />
           <Route path="/documents/new" element={<DocumentCreate />} />
+          <Route
+            path="/documents/:documentId/questions"
+            element={<QuestionsList />}
+          />
           <Route path="/documents/:id" element={<DocumentEditor />} />
         </Routes>
       </Content>

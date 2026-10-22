@@ -8,6 +8,20 @@ export interface DocumentRecord {
   updated_at: string;
 }
 
+export interface QuestionRecord {
+  id: number;
+  document_id: number;
+  question: string;
+  answer: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface QuestionPayload {
+  question: string;
+  answer: string | null;
+}
+
 export interface DocumentPayload {
   name: string;
   language: string;
@@ -73,4 +87,34 @@ export function updateDocument(
 
 export function deleteDocument(id: number): Promise<void> {
   return request<void>(`/documents/${id}`, { method: "DELETE" });
+}
+
+// Questions are always scoped to a document: they are listed and created under
+// the parent document, and addressed directly once they exist.
+export function listQuestions(documentId: number): Promise<QuestionRecord[]> {
+  return request<QuestionRecord[]>(`/documents/${documentId}/questions`);
+}
+
+export function createQuestion(
+  documentId: number,
+  payload: QuestionPayload,
+): Promise<QuestionRecord> {
+  return request<QuestionRecord>(`/documents/${documentId}/questions`, {
+    method: "POST",
+    body: JSON.stringify({ question: payload }),
+  });
+}
+
+export function updateQuestion(
+  id: number,
+  payload: QuestionPayload,
+): Promise<QuestionRecord> {
+  return request<QuestionRecord>(`/questions/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ question: payload }),
+  });
+}
+
+export function deleteQuestion(id: number): Promise<void> {
+  return request<void>(`/questions/${id}`, { method: "DELETE" });
 }

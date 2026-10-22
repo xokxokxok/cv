@@ -33,6 +33,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Personal job search notes (never commit: the repository is public).
+/job_search/
+
 # --- Firebase / Node (kept from the original project .gitignore) ---
 
 # Logs

@@ -2,7 +2,7 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import type { FieldProps } from "@rjsf/utils";
 import { Button, Col, Input, Row, Segmented, Space } from "antd";
 import { useEffect, useState, type ReactNode } from "react";
-import { StringListEditor } from "./ExperienceFields";
+import { TagList } from "./TagListField";
 
 type GroupedTopic = {
   title: string;
@@ -24,11 +24,7 @@ function detectContentKind(value: unknown): ContentKind {
     return "string-array";
   }
 
-  if (
-    typeof value === "object" &&
-    "title" in value &&
-    "content" in value
-  ) {
+  if (typeof value === "object" && "title" in value && "content" in value) {
     return "grouped-object";
   }
 
@@ -36,7 +32,7 @@ function detectContentKind(value: unknown): ContentKind {
 }
 
 const KIND_OPTIONS = [
-  { value: "string-array", label: "List" },
+  { value: "string-array", label: "Flat list" },
   { value: "grouped-list", label: "Topics" },
   { value: "grouped-object", label: "Single topic" },
 ] as const;
@@ -44,21 +40,21 @@ const KIND_OPTIONS = [
 function emptyValueForKind(kind: ContentKind): unknown {
   switch (kind) {
     case "grouped-list":
-      return [{ title: "", content: [""] }];
+      return [{ title: "", content: [] }];
     case "grouped-object":
-      return { title: "", content: [""] };
+      return { title: "", content: [] };
     default:
-      return [""];
+      return [];
   }
 }
 
-function bordered(children: ReactNode) {
+function panel(children: ReactNode) {
   return (
     <div
       style={{
-        border: "1px solid #c5c5c5",
+        border: "1px solid #f0f0f0",
         borderRadius: 8,
-        padding: "12px 16px",
+        padding: 12,
         background: "#fafafa",
       }}
     >
@@ -80,27 +76,23 @@ function GroupedListEditor({
   disabled,
   readonly,
 }: GroupedListEditorProps) {
-  const groups = value.length > 0 ? value : [{ title: "", content: [""] }];
+  const groups = value.length > 0 ? value : [{ title: "", content: [] }];
 
   function updateGroup(index: number, patch: Partial<GroupedTopic>) {
-    onChange(groups.map((group, i) => (i === index ? { ...group, ...patch } : group)));
-  }
-
-  function addGroup() {
-    onChange([...groups, { title: "", content: [""] }]);
+    onChange(groups.map((g, i) => (i === index ? { ...g, ...patch } : g)));
   }
 
   function removeGroup(index: number) {
     const copy = groups.filter((_, i) => i !== index);
-    onChange(copy.length > 0 ? copy : [{ title: "", content: [""] }]);
+    onChange(copy.length > 0 ? copy : [{ title: "", content: [] }]);
   }
 
   return (
-    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+    <Space direction="vertical" size={12} style={{ width: "100%" }}>
       {groups.map((group, index) => (
         <div key={index}>
-          {bordered(
-            <Space direction="vertical" size="small" style={{ width: "100%" }}>
+          {panel(
+            <Space direction="vertical" size={8} style={{ width: "100%" }}>
               <Row gutter={8} align="middle" wrap={false}>
                 <Col flex="auto">
                   <Input
@@ -115,6 +107,7 @@ function GroupedListEditor({
                     <Button
                       danger
                       type="text"
+                      size="small"
                       icon={<MinusCircleOutlined />}
                       disabled={disabled || groups.length === 1}
                       onClick={() => removeGroup(index)}
@@ -122,10 +115,11 @@ function GroupedListEditor({
                   </Col>
                 )}
               </Row>
-              <StringListEditor
-                value={group.content}
+              <TagList
+                value={group.content ?? []}
                 disabled={disabled}
                 readonly={readonly}
+                placeholder="Add a skill and press Enter"
                 onChange={(content) => updateGroup(index, { content })}
               />
             </Space>,
@@ -135,10 +129,10 @@ function GroupedListEditor({
       {!readonly && (
         <Button
           type="dashed"
+          size="small"
           icon={<PlusOutlined />}
           disabled={disabled}
-          onClick={addGroup}
-          block
+          onClick={() => onChange([...groups, { title: "", content: [] }])}
         >
           Add topic
         </Button>
@@ -148,8 +142,9 @@ function GroupedListEditor({
 }
 
 /**
- * Custom editor for expertise group `content` (anyOf: string[] | grouped object | grouped list in data).
- * Must set ui:fieldReplacesAnyOrOneOf so rjsf does not also render the anyOf branch UI.
+ * Editor for an expertise group's `content`, which the schema allows to be a
+ * flat list of skills, a single titled topic, or several titled topics.
+ * The segmented control picks the shape; the values are always entered as tags.
  */
 export default function ExpertiseContentField(props: FieldProps) {
   const { formData, onChange, disabled, readonly, fieldPathId } = props;
@@ -170,10 +165,13 @@ export default function ExpertiseContentField(props: FieldProps) {
     emit(emptyValueForKind(nextKind));
   }
 
+  const single = (formData ?? {}) as GroupedTopic;
+
   return (
-    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+    <Space direction="vertical" size={12} style={{ width: "100%" }}>
       {!readonly && (
         <Segmented
+          size="small"
           value={kind}
           options={[...KIND_OPTIONS]}
           disabled={disabled}
@@ -182,10 +180,11 @@ export default function ExpertiseContentField(props: FieldProps) {
       )}
 
       {kind === "string-array" && (
-        <StringListEditor
-          value={Array.isArray(formData) ? (formData as string[]) : [""]}
+        <TagList
+          value={Array.isArray(formData) ? (formData as string[]) : []}
           disabled={disabled}
           readonly={readonly}
+          placeholder="Add a skill and press Enter"
           onChange={emit}
         />
       )}
@@ -199,34 +198,26 @@ export default function ExpertiseContentField(props: FieldProps) {
         />
       )}
 
-      {kind === "grouped-object" && (
-        bordered(
-          <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      {kind === "grouped-object" &&
+        panel(
+          <Space direction="vertical" size={8} style={{ width: "100%" }}>
             <Input
-              value={(formData as GroupedTopic)?.title ?? ""}
+              value={single.title ?? ""}
               disabled={disabled || readonly}
               placeholder="Topic title"
               onChange={(e) =>
-                emit({
-                  title: e.target.value,
-                  content: (formData as GroupedTopic)?.content ?? [""],
-                })
+                emit({ title: e.target.value, content: single.content ?? [] })
               }
             />
-            <StringListEditor
-              value={(formData as GroupedTopic)?.content ?? [""]}
+            <TagList
+              value={single.content ?? []}
               disabled={disabled}
               readonly={readonly}
-              onChange={(content) =>
-                emit({
-                  title: (formData as GroupedTopic)?.title ?? "",
-                  content,
-                })
-              }
+              placeholder="Add a skill and press Enter"
+              onChange={(content) => emit({ title: single.title ?? "", content })}
             />
           </Space>,
-        )
-      )}
+        )}
     </Space>
   );
 }
